@@ -1,0 +1,24 @@
+# version: '3.8'はdocker-composeのバージョンを指定している
+version: '3.8'
+services:
+  app:
+  # build: .はDockerfileを使ってイメージをビルドすることを指定している. 
+    build: .
+    # コンテナのポートとホストのポートを紐づける
+    ports:
+      - '8000:8000'
+    # appサービスはdbサービスに依存しています。
+    # dbサービスが起動していない場合、appサービスの起動時にdbも自動的に起動します。
+    depends_on:
+      - db
+      # 環境変数を指定している
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/dbname
+  db:
+    image: postgres:12
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dbname
