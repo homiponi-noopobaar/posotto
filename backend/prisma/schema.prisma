@@ -9,3 +9,56 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id  String @id
+  img_url String
+  isPublic Boolean @default(true)
+  link String
+  birthday DateTime
+  comment String
+  created_at DateTime @default(now())
+  deleted_at DateTime
+  follower Follow[] @relation("follower")
+  followed Follow[] @relation("followed")
+  posts Post[]
+  comments Comment[]
+  favorites Favorite[]
+
+}
+
+model Follow {
+  follower_user User @relation(fields: [follower_id], references: [id], name: "follower")
+  follower_id String 
+  followed_user User @relation(fields: [following_id], references: [id], name: "followed")
+  following_id String
+  @@id([follower_id, following_id])
+}
+
+model Post {
+  id BigInt @id @default(autoincrement())
+  user User @relation(fields: [user_id], references: [id])
+  user_id String 
+  content String
+  created_at DateTime @default(now())
+  comments Comment[]
+  favorites Favorite[]
+}
+
+model Comment {
+  id BigInt @id @default(autoincrement())
+  post Post @relation(fields: [post_id], references: [id])
+  post_id BigInt
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+  content String
+  created_at DateTime @default(now())
+}
+
+model Favorite {
+  user User @relation(fields: [user_id], references: [id])
+  user_id String
+  post Post @relation(fields: [post_id], references: [id])
+  post_id BigInt
+  @@id([user_id, post_id])
+}
