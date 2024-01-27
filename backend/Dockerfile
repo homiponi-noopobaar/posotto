@@ -1,18 +1,25 @@
 FROM node:18.16.0
-# コンテナ内の作業ディレクトリを指定
-WORKDIR /usr/src/app
-# ホストマシンのpackage.jsonをコンテナ内の作業ディレクトリにコピー
-COPY package*.json pnpm-lock.yaml ./
 
-# pnpmをインストールして依存関係をインストール
-RUN npm install -g pnpm && pnpm install
-# ホストマシンのソースコードをコンテナ内の作業ディレクトリにコピー
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+# pnpmのグローバルストアディレクトリを設定
+RUN npm install -g pnpm && pnpm config set store-dir /usr/src/app/.pnpm-store --global
+
+# 依存関係のインストール
+RUN pnpm install --force
+
+# @prisma/clientの追加
+RUN pnpm add @prisma/client
+
 COPY . .
 
-# アプリケーションのビルドを実行
 RUN pnpm run build
 
-# アプリケーションの起動
+# Prismaの生成
+RUN npx prisma generate
+
 EXPOSE 8000
-# コンテナのポート3000をホストマシンのポート3000にマッピング
+
 CMD ["pnpm", "run", "start:prod"]
