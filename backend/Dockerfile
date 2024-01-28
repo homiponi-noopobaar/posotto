@@ -1,25 +1,23 @@
 FROM node:18.16.0
 
-WORKDIR /usr/src/app
+# NestJS CLIのインストール
+RUN npm i -g @nestjs/cli
 
-COPY package*.json ./
+WORKDIR /api
 
-# pnpmのグローバルストアディレクトリを設定
-RUN npm install -g pnpm && pnpm config set store-dir /usr/src/app/.pnpm-store --global
-
-# 依存関係のインストール
-RUN pnpm install --force
-
-# @prisma/clientの追加
-RUN pnpm add @prisma/client
-
+# プロジェクトファイルのコピー
 COPY . .
 
-RUN pnpm run build
+# 依存関係のインストール
+RUN npm i
 
 # Prismaの生成
 RUN npx prisma generate
 
+# ビルドプロセス
+RUN npm run build
+
 EXPOSE 8000
 
-CMD ["pnpm", "run", "start:prod"]
+# 本番環境でのアプリケーションの起動
+CMD ["node", "dist/src/main"]
