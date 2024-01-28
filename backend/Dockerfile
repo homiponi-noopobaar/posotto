@@ -1,18 +1,23 @@
 FROM node:18.16.0
-# コンテナ内の作業ディレクトリを指定
-WORKDIR /usr/src/app
-# ホストマシンのpackage.jsonをコンテナ内の作業ディレクトリにコピー
-COPY package*.json pnpm-lock.yaml ./
 
-# pnpmをインストールして依存関係をインストール
-RUN npm install -g pnpm && pnpm install
-# ホストマシンのソースコードをコンテナ内の作業ディレクトリにコピー
+# NestJS CLIのインストール
+RUN npm i -g @nestjs/cli
+
+WORKDIR /api
+
+# プロジェクトファイルのコピー
 COPY . .
 
-# アプリケーションのビルドを実行
-RUN pnpm run build
+# 依存関係のインストール
+RUN npm i
 
-# アプリケーションの起動
+# Prismaの生成
+RUN npx prisma generate
+
+# ビルドプロセス
+RUN npm run build
+
 EXPOSE 8000
-# コンテナのポート3000をホストマシンのポート3000にマッピング
-CMD ["pnpm", "run", "start:prod"]
+
+# 本番環境でのアプリケーションの起動
+CMD ["node", "dist/src/main"]
