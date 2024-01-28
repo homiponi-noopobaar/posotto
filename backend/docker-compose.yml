@@ -3,8 +3,6 @@ services:
   api:
     container_name: api
     build: .
-    volumes:
-      - ./prisma:/usr/src/app/prisma
     # コンテナのポートとホストのポートを紐づける
     tty: true
     ports:
