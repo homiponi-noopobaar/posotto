@@ -1,9 +1,9 @@
 // src/posts/services/post.service.ts
 
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PostRepository } from './repositories/post.repository';
-import { CreatePostDto } from './dto/create-post.dto';
-import { AudioRecognitionService } from './services/audio-recognition.service';
+import { PostRepository } from '../repositories/post.repository';
+import { CreatePostDto } from '../dto/create-post.dto';
+import { AudioRecognitionService } from './audio-recognition.service';
 import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
@@ -14,21 +14,28 @@ export class PostService {
     private authService: AuthService,
   ) {}
 
+  /**
+   *  createPost: 音声認識を行い、認識したテキストをDBに保存する
+   * @param createPostDto
+   * @param userId
+   * @returns
+   */
   async createPost(createPostDto: CreatePostDto, userId: string) {
-    const user = await this.authService.getUser(userId);
-    const recognizedText = await this.audioRecognitionService.recognizeAudio(
-      createPostDto.content.path,
-    );
-    const newPost = {
-      user_id: createPostDto.user_id,
-      created_at: createPostDto.created_at,
-      content: recognizedText,
-    };
-    return this.postRepository.createPost(
-      newPost.content,
-      newPost.user_id,
-      newPost.created_at,
-    );
+    try {
+      const user = await this.authService.getUser(userId);
+      const recognizedText = await this.audioRecognitionService.recognizeAudio(
+        createPostDto.content.path,
+      );
+      const newPostData = {
+        user_id: user.id,
+        created_at: createPostDto.created_at,
+        content: recognizedText,
+      };
+      const newPost = await this.postRepository.createPost(newPostData);
+      return newPost;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findPostById(id: number) {

@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePostDto } from '../dto/create-post.dto';
-import { PostService } from '../post.service';
+import { PostService } from '../services/post.service';
 
 @Controller('posts')
 export class PostsController {
@@ -16,14 +16,5 @@ export class PostsController {
   @Get()
   fetchAllPosts() {
     return this.appService.findAllPosts();
-  }
-
-  @Post()
-  @UseInterceptors(FileInterceptor('content'))
-  createPost(
-    @UploadedFile() content: Express.Multer.File,
-    @Body() createPostDto: CreatePostDto,
-  ) {
-    // ここでファイルと他のデータを処理
   }
 }
