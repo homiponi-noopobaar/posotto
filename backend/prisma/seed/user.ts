@@ -11,7 +11,7 @@ export const user = async () => {
       // q:"please sample email",
       birthday: new Date(),
       created_at: new Date(),
-      id: '1',
+      id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
       // アクセスするたびに画像が変わるURL
       img_url: 'https://picsum.photos/200/300',
       isPublic: true,

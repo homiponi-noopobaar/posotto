@@ -3,12 +3,11 @@ import { Post, PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const post = async () => {
-  const posts: Post[] = [
+  const posts = [
     {
       content: 'aaaaaa',
       created_at: new Date(),
-      id: BigInt('1'),
-      user_id: '1',
+      user_id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
     },
   ];
   await prisma.post.createMany({
