@@ -1,10 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { clerkClient } from '@clerk/clerk-sdk-node';
 
-
+@Global()
 @Module({
-  providers: [AuthService],
-  exports: [AuthService],
+  providers: [AuthService]
 })
 export class AuthModule {}
