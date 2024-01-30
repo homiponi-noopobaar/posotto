@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 @Controller('posts')
 export class PostsController {
   constructor(private readonly appService: PostService) {}
-  
+
   @Get()
   fetchAllPosts() {
     return this.appService.findAllPosts();
@@ -28,8 +28,10 @@ export class PostsController {
     @UploadedFile() content: Express.Multer.File,
     @Body() createPostDto: CreatePostDto,
   ) {
+    console.log(content);
+
     createPostDto.content = content;
-    
+
     return await this.appService.createPost(createPostDto);
   }
 }
