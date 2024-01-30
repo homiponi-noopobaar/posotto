@@ -13,11 +13,13 @@ datasource db {
 
 model User {
   id  String @id
-  img_url String
+  publicId String @unique
+  nickname String
+  img_url String?
   isPublic Boolean @default(true)
-  link String
-  birthday DateTime
-  comment String
+  link String?
+  birthday DateTime?
+  comment String?
   created_at DateTime @default(now())
   deleted_at DateTime
   follower Follow[] @relation("follower")
@@ -25,7 +27,6 @@ model User {
   posts Post[]
   comments Comment[]
   favorites Favorite[]
-
 }
 
 model Follow {

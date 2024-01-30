@@ -9,8 +9,8 @@ export class UserService {
     private authService: AuthService,
   ) {}
 
-  async findUserbyId(id) {
-    const user = await this.userRepository.findProfilebyId(id);
+  async findUserbyPublicId(publicId: string) {
+    const user = await this.userRepository.findProfilebyPublicId(publicId);
     return user
   }
 }

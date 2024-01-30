@@ -6,7 +6,7 @@ import { User } from '@prisma/client';
 export class UserRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findProfilebyId(id: string){
+  async findProfilebyPublicId(publicId: string){
     const profile =  this.prisma.user.findUnique({
       select: {
         img_url: true,
@@ -30,7 +30,7 @@ export class UserRepository {
           }
         },
       },
-      where: { id },
+      where: { publicId },
     });
   
     return profile

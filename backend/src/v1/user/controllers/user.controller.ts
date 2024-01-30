@@ -6,9 +6,9 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class UserController {
     constructor(private readonly userService: UserService) {}
     
-    @Get('/:id')
-    async getProfileById(@Param('id') id: string){
-        const profile = this.userService.findUserbyId(id);
+    @Get('/:publicId')
+    async getProfileByPublicId(@Param('publicId') publicId: string){
+        const profile = this.userService.findUserbyPublicId(publicId);
         return await profile
     }
 }

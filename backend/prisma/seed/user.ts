@@ -12,6 +12,8 @@ export const user = async () => {
       birthday: new Date(),
       created_at: new Date(),
       id: 'user_2bZsg5vIrB06IKeLE7eYyecxop0',
+      publicId: 'posotto_official',
+      nickname: 'posotto',
       // アクセスするたびに画像が変わるURL
       img_url: 'https://picsum.photos/200/300',
       isPublic: true,
