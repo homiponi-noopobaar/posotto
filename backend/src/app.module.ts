@@ -10,14 +10,20 @@ import { PrismaService } from 'prisma/prisma.service';
 import { AuthService } from './auth/auth.service';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { UserController } from './v1/user/controllers/user.controller';
+import { UserModule } from './v1/user/user.module';
+import { UserService } from './v1/user/services/user.service';
+import { UserRepository } from './v1/user/repositories/user.repository';
 
 @Module({
-  imports: [PostModule],
-  controllers: [AppController, PostsController],
+  imports: [PostModule, UserModule],
+  controllers: [AppController, PostsController, UserController],
   providers: [
     AppService,
     PostService,
     PostRepository,
+    UserService,
+    UserRepository,
     AudioRecognitionService,
     PrismaService,
     AuthService,
