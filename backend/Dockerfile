@@ -14,7 +14,6 @@ COPY . .
 RUN npm i
 
 # Prismaの生成
-RUN npx prisma migrate dev 
 RUN npx prisma generate
 
 # ビルドプロセス

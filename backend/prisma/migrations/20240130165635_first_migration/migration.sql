@@ -1,11 +1,13 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "img_url" TEXT NOT NULL,
+    "publicId" TEXT NOT NULL,
+    "nickname" TEXT NOT NULL,
+    "img_url" TEXT,
     "isPublic" BOOLEAN NOT NULL DEFAULT true,
-    "link" TEXT NOT NULL,
-    "birthday" TIMESTAMP(3) NOT NULL,
-    "comment" TEXT NOT NULL,
+    "link" TEXT,
+    "birthday" TIMESTAMP(3),
+    "comment" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" TIMESTAMP(3) NOT NULL,
 
@@ -48,6 +50,9 @@ CREATE TABLE "Favorite" (
 
     CONSTRAINT "Favorite_pkey" PRIMARY KEY ("user_id","post_id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_publicId_key" ON "User"("publicId");
 
 -- AddForeignKey
 ALTER TABLE "Follow" ADD CONSTRAINT "Follow_follower_id_fkey" FOREIGN KEY ("follower_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

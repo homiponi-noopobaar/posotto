@@ -17,8 +17,8 @@ export class PostsController {
   constructor(private readonly appService: PostService) {}
 
   @Get()
-  fetchAllPosts() {
-    return this.appService.findAllPosts();
+  async fetchAllPosts() {
+    return await this.appService.findAllPosts();
   }
 
   @Post()
