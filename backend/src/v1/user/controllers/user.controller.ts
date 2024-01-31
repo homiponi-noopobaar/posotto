@@ -2,7 +2,7 @@ import { Controller, Get, Param, NotFoundException, UseGuards } from '@nestjs/co
 import { UserService } from '../services/user.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('user')
+@Controller('v1/user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
     

@@ -13,7 +13,7 @@ import {
 } from '@yamada-ui/react'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { Post } from '@/lib/types'
+import { Post } from '@/types/data/post'
 import PostContent from './PostContent'
 
 export default function PostCard(post: Post) {

@@ -12,7 +12,7 @@ import { CreatePostDto } from '../dto/create-post.dto';
 import { PostService } from '../services/post.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('posts')
+@Controller('v1/posts')
 export class PostsController {
   constructor(private readonly appService: PostService) {}
 
