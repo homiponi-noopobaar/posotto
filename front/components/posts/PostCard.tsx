@@ -1,6 +1,5 @@
-'use client'
+import { Post } from '@/types/data/post'
 import { LinkBox, LinkOverlay } from '@yamada-ui/react'
-import { Post } from '@/types/post'
 import PostContent from './PostContent'
 
 export default function PostCard(post: Post) {
@@ -18,7 +17,7 @@ export default function PostCard(post: Post) {
              -28px -28px 56px #ffffff"
         overflow="hidden"
       >
-        <LinkOverlay href={`/${post.userName}/${post.id}`} />
+        <LinkOverlay href={`/${post.user.public_id}/${post.id}`} />
         <PostContent {...post} />
       </LinkBox>
     </>

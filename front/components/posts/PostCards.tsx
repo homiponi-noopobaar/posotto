@@ -1,6 +1,6 @@
 import { VStack } from '@yamada-ui/react'
-import { Post } from '@/types/post'
 import PostCard from './PostCard'
+import { Post } from '@/types/data/post'
 
 interface PostCardsProps {
   posts: Post[]

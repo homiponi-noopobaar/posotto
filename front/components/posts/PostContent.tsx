@@ -22,10 +22,10 @@ import {
   faHeart as faRegularHeart,
   faComment,
 } from '@fortawesome/free-regular-svg-icons'
-import { Post } from '@/types/post'
-import { useLike } from '@/components/posts/hooks/useLike'
-import { NeumoIconButton } from '@/components/elements/NeumoIconButton'
+import { Post } from '@/types/data/post'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
+import { useLike } from './hooks/useLike'
+import { NeumoIconButton } from '../elements/NeumoIconButton'
 
 export default function PostContent(post: Post) {
   const { isLiked, handleClickLike } = useLike()
@@ -38,7 +38,7 @@ export default function PostContent(post: Post) {
           <HStack gap="1em" justify="space-between">
             <Avatar size="sm" />
             <VStack gap="0">
-              <Text fontWeight="bold">{post.userName}</Text>
+              <Text fontWeight="bold">{post.user.nickname}</Text>
               <Text fontSize="2xs">1時間前</Text>
             </VStack>
             <Spacer />
@@ -70,7 +70,7 @@ export default function PostContent(post: Post) {
             />
             <NeumoIconButton
               handleClick={() =>
-                handlePushRouter(`/${post.userName}/${post.id}`)
+                handlePushRouter(`/${post.user.public_id}/${post.id}`)
               }
               icon={faComment}
             />

@@ -1,5 +1,5 @@
 import { Box, Divider, VStack } from '@yamada-ui/react'
-import { Post } from '@/types/post'
+import { Post } from '@/types/data/post'
 import PostCard from './PostCard'
 import PostContent from './PostContent'
 
