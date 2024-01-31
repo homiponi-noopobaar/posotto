@@ -13,7 +13,8 @@ import {
 } from '@yamada-ui/react'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { Post } from '@/lib/types'
+import { Post } from '@/types/data/post'
+
 
 export default function PostContent(post: Post) {
   return (
@@ -23,7 +24,7 @@ export default function PostContent(post: Post) {
         <VStack gap="3px" ps="md">
           <HStack gap="0" justify="space-between">
             <VStack gap="0">
-              <Text fontWeight="bold">{post.userName}</Text>
+              <Text fontWeight="bold">{post.user.nickname}</Text>
               <Text fontSize="2xs">1時間前</Text>
             </VStack>
             <Spacer />

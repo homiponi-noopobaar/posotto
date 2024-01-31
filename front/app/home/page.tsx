@@ -1,5 +1,4 @@
 import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
-import { posts } from '@/constants'
 import PostCards from '@/components/posts/PostCards'
 import { PostService } from './_services/post.service'
 import { PostRepository } from '@/repositories/post.repository'

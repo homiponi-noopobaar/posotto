@@ -46,7 +46,7 @@ export default async function RootLayout({
   }
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="ja">
         <body>
           <ColorModeScript type="cookie" nonce="testing" />
           <UIProvider
