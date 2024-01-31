@@ -24,7 +24,25 @@ export class PostRepository {
   }
 
   async findAllPosts(): Promise<Post[]> {
-    return this.prisma.post.findMany();
+    const posts = await this.prisma.post.findMany({
+      select: { 
+        id: true,
+        content: true,
+        created_at: true,
+        user_id: true,
+        user: {
+          select:{
+            id: true,
+            publicId: true,
+            img_url: true,
+            nickname: true,
+            isPublic: true
+          }
+        }
+      },
+    });
+
+    return posts;
   }
 
 }
