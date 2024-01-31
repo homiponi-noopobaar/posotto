@@ -15,7 +15,6 @@ import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { Post } from '@/types/data/post'
 
-
 export default function PostContent(post: Post) {
   return (
     <>
