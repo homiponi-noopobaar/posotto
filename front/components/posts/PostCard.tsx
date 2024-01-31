@@ -1,25 +1,12 @@
-import {
-  Box,
-  Text,
-  Avatar,
-  VStack,
-  HStack,
-  Spacer,
-  Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-} from '@yamada-ui/react'
-import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import { Post } from '@/lib/types'
+'use client'
+import { LinkBox, LinkOverlay } from '@yamada-ui/react'
+import { Post } from '@/types/post'
 import PostContent from './PostContent'
 
 export default function PostCard(post: Post) {
   return (
     <>
-      <Box
+      <LinkBox
         minH="7em"
         mx="md"
         w={{ base: '90%', lg: '90%' }}
@@ -29,9 +16,11 @@ export default function PostCard(post: Post) {
         bg="#eff2f9"
         boxShadow="28px 28px 56px #c4c6cc,
              -28px -28px 56px #ffffff"
+        overflow="hidden"
       >
+        <LinkOverlay href={`/${post.userName}/${post.id}`} />
         <PostContent {...post} />
-      </Box>
+      </LinkBox>
     </>
   )
 }
