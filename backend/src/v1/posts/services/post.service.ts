@@ -23,10 +23,11 @@ export class PostService {
     try {
       const {content,user_id,created_at} = createPostDto;
       const user = await this.authService.getUser(user_id);
+      // console.log(content);
       
       
       const recognizedText = await this.audioRecognitionService.recognizeAudio(
-        content.path,
+        content.buffer,
       );
       const newPostData = {
         user_id: user.id,

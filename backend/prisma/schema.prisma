@@ -25,7 +25,6 @@ model User {
   posts Post[]
   comments Comment[]
   favorites Favorite[]
-
 }
 
 model Follow {

@@ -28,7 +28,6 @@ export class PostsController {
     @UploadedFile() content: Express.Multer.File,
     @Body() createPostDto: CreatePostDto,
   ) {
-    console.log(content);
 
     createPostDto.content = content;
 
