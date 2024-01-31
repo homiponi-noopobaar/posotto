@@ -1,10 +1,11 @@
-import { PosotoProps } from '@/components/Posoto'
+import { Post } from '@/lib/types'
 
-export const posotos: PosotoProps[] = [
+export const posts: Post[] = [
   {
     id: 1,
     userName: 'user1',
-    content: 'content1',
+    content:
+      'posotoの中身そのいちposotoの中身そのいちposotoの中身そのいちposotoの中身そのいちposotoの中身そのいちposotoの中身そのいちposotoの中身そのいちposotoの中身そのいち',
   },
   {
     id: 2,
