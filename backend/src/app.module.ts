@@ -22,10 +22,14 @@ import { FavoriteController } from './v1/favorite/controllers/favorite.controlle
 import { FavoriteModule } from './v1/favorite/favorite.module';
 import { FavoriteService } from './v1/favorite/services/favorite.service';
 import { FavoriteRepository } from './v1/favorite/repositories/favorite.repository';
+import { CommentService } from './v1/comment/services/comment.service';
+import { CommentRepository } from './v1/comment/repositories/comment.repository';
+import { CommentController } from './v1/comment/controllers/comment.controller';
+import { CommentModule } from './v1/comment/comment.module';
 
 @Module({
-  imports: [PostModule, UserModule, FollowModule, FavoriteModule],
-  controllers: [AppController, PostsController, UserController, FollowController, FavoriteController],
+  imports: [PostModule, UserModule, FollowModule, FavoriteModule, CommentModule],
+  controllers: [AppController, PostsController, UserController, FollowController, FavoriteController, CommentController],
   providers: [
     AppService,
     PostService,
@@ -36,6 +40,8 @@ import { FavoriteRepository } from './v1/favorite/repositories/favorite.reposito
     FollowRepository,
     FavoriteService,
     FavoriteRepository,
+    CommentService,
+    CommentRepository,
     AudioRecognitionService,
     PrismaService,
     AuthService,

@@ -83,7 +83,10 @@ export class PostRepository {
     }
   }
 
-  async findAllPosts(): Promise<Post[]> {
+  async findAllPosts(data: {year: number, month: number, day: number, hour: number, minute: number, second: number}): Promise<Post[]> {
+    const {year, month, day, hour, minute, second} = data;
+    //dataには24時間以内の投稿のみを取得するための日付データが入っている
+    //dataの時間制限以内の投稿を取得する
     const posts = await this.prisma.post.findMany({
       select: { 
         id: true,
@@ -105,7 +108,12 @@ export class PostRepository {
       },
     });
 
-    return posts;
+    const newPosts = posts.filter((post) => {
+      const postDate = new Date(post.created_at);
+      const limitDate = new Date(year, month, day, hour, minute, second);
+      return postDate.getTime() > limitDate.getTime();
+    });
+    return newPosts;
   }
 
 }

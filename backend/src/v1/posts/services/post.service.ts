@@ -43,7 +43,9 @@ export class PostService {
 
   async findAllPosts() {
     const user_id = await this.authService.getCrrentUserId();
-    const posts = await this.postRepository.findAllPosts();
+    //limitTimeに24時間を入れて、24時間以内の投稿のみを取得する
+    const limitTime = {year: 0, month: 0, day: 1, hour: 0, minute: 0, second: 0}
+    const posts = await this.postRepository.findAllPosts(limitTime);
     const newPosts = posts.map((post) => {
       const favorites = post.favorites;
       return {id: post.id, user: post.user, content: post.content, created_at: post.created_at, _count: post._count, isLiked: favorites.some((favorite) => favorite.user_id === user_id)};
