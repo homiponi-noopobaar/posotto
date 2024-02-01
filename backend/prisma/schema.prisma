@@ -21,7 +21,7 @@ model User {
   birthday DateTime?
   comment String?
   created_at DateTime @default(now())
-  deleted_at DateTime
+  deleted_at DateTime?
   follower Follow[] @relation("follower")
   followed Follow[] @relation("followed")
   posts Post[]

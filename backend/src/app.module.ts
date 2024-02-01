@@ -14,16 +14,22 @@ import { UserController } from './v1/user/controllers/user.controller';
 import { UserModule } from './v1/user/user.module';
 import { UserService } from './v1/user/services/user.service';
 import { UserRepository } from './v1/user/repositories/user.repository';
+import { FollowController } from './v1/follow/controllers/follow.controller';
+import { FollowModule } from './v1/follow/follow.module';
+import { FollowService } from './v1/follow/services/follow.service';
+import { FollowRepository } from './v1/follow/repositories/follow.repository';
 
 @Module({
-  imports: [PostModule, UserModule],
-  controllers: [AppController, PostsController, UserController],
+  imports: [PostModule, UserModule, FollowModule],
+  controllers: [AppController, PostsController, UserController, FollowController],
   providers: [
     AppService,
     PostService,
     PostRepository,
     UserService,
     UserRepository,
+    FollowService,
+    FollowRepository,
     AudioRecognitionService,
     PrismaService,
     AuthService,
