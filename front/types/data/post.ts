@@ -2,7 +2,9 @@ export type Post ={
     id:number,
     user:User,
     content:string,
-    created_at:Date
+    created_at:Date,
+    isLiked:boolean
+    _count: {favorites:number,comments:number}
 }
 
 export type PostDetail =Post & {

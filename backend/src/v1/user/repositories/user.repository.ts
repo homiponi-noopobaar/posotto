@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { User } from '@prisma/client';
+import { User } from 'src/v1/user/types/User';
 
 @Injectable()
 export class UserRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findProfilebyPublicId(publicId: string){
-    const profile =  this.prisma.user.findUnique({
+  //  いらないカラムがあるかも
+  async findProfilebyPublicId(publicId: string): Promise<User> {
+    const profile = this.prisma.user.findUnique({
       select: {
+        id:true,
+        nickname:true,
         img_url: true,
         isPublic: true,
         link: true,
@@ -18,21 +21,22 @@ export class UserRepository {
           select: {
             id: true,
             content: true,
+            created_at:true,
             _count: {
-              select: { favorites: true }
-            }
-          }
+              select: { favorites: true },
+            },
+          },
         },
-        _count:{
+        _count: {
           select: {
             follower: true,
-            followed: true
-          }
+            followed: true,
+          },
         },
       },
       where: { publicId },
     });
-  
-    return profile
+
+    return profile;
   }
 }

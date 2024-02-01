@@ -10,7 +10,7 @@ export default async function Home() {
   const PostSev = new PostService(PostRepo)
   const posts = await PostSev.findAll()
   if (!posts) return <div>Loading...</div>
-  console.log(posts)
+  // console.log(posts)
 
   return (
     <Stack direction="column" minH="100vh" w="full">
