@@ -18,10 +18,14 @@ import { FollowController } from './v1/follow/controllers/follow.controller';
 import { FollowModule } from './v1/follow/follow.module';
 import { FollowService } from './v1/follow/services/follow.service';
 import { FollowRepository } from './v1/follow/repositories/follow.repository';
+import { FavoriteController } from './v1/favorite/controllers/favorite.controller';
+import { FavoriteModule } from './v1/favorite/favorite.module';
+import { FavoriteService } from './v1/favorite/services/favorite.service';
+import { FavoriteRepository } from './v1/favorite/repositories/favorite.repository';
 
 @Module({
-  imports: [PostModule, UserModule, FollowModule],
-  controllers: [AppController, PostsController, UserController, FollowController],
+  imports: [PostModule, UserModule, FollowModule, FavoriteModule],
+  controllers: [AppController, PostsController, UserController, FollowController, FavoriteController],
   providers: [
     AppService,
     PostService,
@@ -30,6 +34,8 @@ import { FollowRepository } from './v1/follow/repositories/follow.repository';
     UserRepository,
     FollowService,
     FollowRepository,
+    FavoriteService,
+    FavoriteRepository,
     AudioRecognitionService,
     PrismaService,
     AuthService,
