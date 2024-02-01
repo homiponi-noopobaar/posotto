@@ -1,3 +1,4 @@
+import { BG_COLOR } from '@/variants'
 import { UserButton, SignedOut, SignInButton, SignedIn } from '@clerk/nextjs'
 import {
   Box,
@@ -13,9 +14,8 @@ import Link from 'next/link'
 export default function Topbar() {
   return (
     <Center
-      // bg="white"
-      bg="#eff2f9"
-      h="6em"
+      bg={BG_COLOR}
+      h="5em"
       w="full"
       px="lg"
       pos="fixed"

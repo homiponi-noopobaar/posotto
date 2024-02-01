@@ -9,7 +9,6 @@ import {
   DrawerFooter,
   DrawerHeader,
   HStack,
-  Heading,
   Spacer,
   Text,
   VStack,
@@ -18,8 +17,7 @@ import {
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 import { currentUser } from '@clerk/nextjs'
-import { useState } from 'react'
-import Posoto from '../posts/PostCards'
+import { BG_COLOR } from '@/variants'
 
 interface Props {
   user: {
@@ -33,38 +31,30 @@ export default function Menubar({ user }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   console.log(currentUser)
   return (
-    <Center
-      // bg="#f5f5f5"
-      bg="#eff2f9"
-      h="6em"
-      w="full"
-      pos="fixed"
-      bottom="0"
-    >
+    <Center h="6em" w="full" pos="fixed" bottom="0">
       <Button
         onClick={onOpen}
         h="4em"
         w="4em"
         borderRadius="50%"
-        // bg="#f5f5f5"
-        bg="#eff2f9"
-        // boxShadow="28px 28px 56px #c9c9c9,
-        //      -28px -28px 56px #ffffff"
         boxShadow="28px 28px 56px #c4c6cc,
              -28px -28px 56px #ffffff"
       >
         <FontAwesomeIcon icon={faMicrophone} fontSize="2em" color="gray.600" />
       </Button>
 
-      <Drawer isOpen={isOpen} onClose={onClose} placement="bottom" h="30em">
+      <Drawer
+        isOpen={isOpen}
+        onClose={onClose}
+        placement="bottom"
+        h="30em"
+        bg={BG_COLOR} // ここで背景色を指定しないと、Drawerの背景色が透明になってしまう
+      >
         <DrawerHeader>ぽそっと、つぶやく</DrawerHeader>
-
         <DrawerBody justifyContent="center">
           <Box
             minH="7em"
             mx="md"
-            // border="1px solid"
-            // borderColor="gray.400"
             w={{ base: '90%', lg: '600px' }}
             p="sm"
             borderRadius="10px"
@@ -90,10 +80,7 @@ export default function Menubar({ user }: Props) {
         </DrawerBody>
         <Spacer />
         <DrawerFooter justifyContent="center">
-          <Button
-            // variant="ghost"
-            onClick={onClose}
-          >
+          <Button variant="ghost" onClick={onClose}>
             posotto
           </Button>
         </DrawerFooter>

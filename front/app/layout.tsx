@@ -6,15 +6,21 @@ import {
   Grid,
   GridItem,
   UIProvider,
+  UIStyle,
   colorModeManager,
-  extendConfig,
+  ColorModeScript,
   ThemeConfig,
+  extendTheme,
+  withDefaultColorScheme,
 } from '@yamada-ui/react'
 import LeftSidebar from '@/components/shared/LeftSidebar'
 import RightSidebar from '@/components/shared/RightSidebar'
-import { ColorModeScript } from '@yamada-ui/core'
 import Menubar from '@/components/shared/Menubar'
 import Topbar from '@/components/shared/Topbar'
+import theme from '@/theme'
+import '@/app/globals.css'
+import { BG_COLOR } from '@/variants'
+import Head from 'next/head'
 
 export const metadata: Metadata = {
   title: 'posotto',
@@ -22,8 +28,6 @@ export const metadata: Metadata = {
 }
 export const fetchCache = 'default-no-store'
 export const dynamic = 'force-dynamic'
-
-// const customConfig = extendConfig({ breakpoint: 'up' })
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -46,28 +50,33 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="ja">
+        <Head>
+          <script src="@/app/script.js"></script>
+        </Head>
         <body>
           <ColorModeScript type="cookie" nonce="testing" />
           <UIProvider
             colorModeManager={{ ...colorModeManager }.cookieStorage}
             config={config}
+            // theme={theme} // yamada-uiのバグ？
           >
             <Topbar />
             <Box w="full">
               <Grid
                 templateColumns={{ base: '0fr auto 0fr', lg: '1fr auto 1fr' }}
+                bgColor={BG_COLOR}
               >
-                <GridItem
-                // borderRight="1px solid" borderColor="gray.200"
-                >
+                <GridItem>
                   <LeftSidebar />
                 </GridItem>
-                <GridItem w={{ base: 'full', lg: '61em' }} py="6em">
+                <GridItem
+                  w={{ base: 'full', lg: '61em' }}
+                  py="6em"
+                  // bg={BG_COLOR}
+                >
                   {children}
                 </GridItem>
-                <GridItem
-                // borderLeft="1px solid" borderColor="gray.200"
-                >
+                <GridItem>
                   <RightSidebar />
                 </GridItem>
               </Grid>
