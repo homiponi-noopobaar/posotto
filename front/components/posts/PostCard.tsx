@@ -6,7 +6,7 @@ export default function PostCard(post: Post) {
   return (
     <>
       <NeumoLinkBox
-        href={`/${post.user.public_id}/${post.id}`}
+        href={`/${post.user.publicId}/${post.id}`}
         minH="7em"
         mx="md"
         w="90%"
