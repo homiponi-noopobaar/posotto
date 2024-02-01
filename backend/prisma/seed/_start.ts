@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { user } from './user';
 import { post } from './post';
+import { follow } from './follow';
 
 const prisma = new PrismaClient();
 
@@ -14,6 +15,7 @@ async function main() {
   // データ削除後に新しいデータを挿入
   await user();
   await post();
+  await follow();
 }
 
 main()
