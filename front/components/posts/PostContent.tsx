@@ -70,7 +70,7 @@ export default function PostContent(post: Post) {
             />
             <NeumoIconButton
               handleClick={() =>
-                handlePushRouter(`/${post.user.public_id}/${post.id}`)
+                handlePushRouter(`/${post.user.publicId}/${post.id}`)
               }
               icon={faComment}
             />

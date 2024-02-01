@@ -1,7 +1,7 @@
 import { Center, Spacer, Stack, Text, VStack } from '@yamada-ui/react'
 import { auth, currentUser, UserProfile } from '@clerk/nextjs'
 import PostCards from '@/components/posts/PostCards'
-import { posts } from '@/constants'
+
 
 export default async function Home() {
   const { userId } = auth()
@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <Stack direction="column" minH="100vh" w="full">
       <UserProfile />
-      <PostCards posts={posts} />
+      {/* <PostCards posts={posts} /> */}
     </Stack>
   )
 }
