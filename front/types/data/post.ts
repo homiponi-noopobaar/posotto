@@ -2,12 +2,14 @@ export type Post ={
     id:number,
     user:User,
     content:string,
-    created_at:Date
+    created_at:Date,
+    isLiked:boolean
+    _count: {favorites:number,comments:number}
 }
 
 type User ={
-    id:number,
-    public_id:string,
+    id:string,
+    publicId:string,
     nickname:string,
     img_url?:string,
     isPublic:boolean,

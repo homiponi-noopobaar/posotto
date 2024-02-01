@@ -29,7 +29,7 @@ interface Props {
 
 export default function Menubar({ user }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  console.log(currentUser)
+  // console.log(currentUser)
   return (
     <Center h="6em" w="full" pos="fixed" bottom="0">
       <Button
