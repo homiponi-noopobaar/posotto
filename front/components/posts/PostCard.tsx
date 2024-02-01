@@ -1,8 +1,11 @@
-import { Post } from '@/types/data/post'
-import PostContent from './PostContent'
+import { PostBodyProps } from './PostBody'
 import { NeumoLinkBox } from '../elements/NeumoLinkBox'
+import PostBody from './PostBody'
 
-export default function PostCard(post: Post) {
+type PostCardProps = PostBodyProps & {}
+
+export default function PostCard(props: PostCardProps) {
+  const { post, ...postBodyProps } = props
   return (
     <>
       <NeumoLinkBox
@@ -15,7 +18,7 @@ export default function PostCard(post: Post) {
         borderRadius="40px"
         overflow="hidden"
       >
-        <PostContent {...post} />
+        <PostBody post={post} {...postBodyProps} />
       </NeumoLinkBox>
     </>
   )

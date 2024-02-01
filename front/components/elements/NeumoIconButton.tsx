@@ -6,15 +6,16 @@ import {
   ICON_BOX_SHADOW_PRESSED,
   ICON_BOX_SHADOW_UNPRESSED,
 } from '@/variants'
+import React from 'react'
 
 type NeumoIconButtonProps = {
-  icon: IconDefinition
+  iconElem: React.ReactElement<IconDefinition>
   isPressed?: boolean
   handleClick: () => void
 }
 
 export const NeumoIconButton = ({
-  icon,
+  iconElem,
   isPressed = false,
   handleClick,
 }: NeumoIconButtonProps) => {
@@ -27,7 +28,7 @@ export const NeumoIconButton = ({
         isPressed ? ICON_BOX_SHADOW_PRESSED : ICON_BOX_SHADOW_UNPRESSED
       }
       onClick={handleClick}
-      icon={<FontAwesomeIcon icon={icon} fontSize="sm" />}
+      icon={iconElem}
     />
   )
 }

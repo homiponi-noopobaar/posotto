@@ -6,7 +6,7 @@ export const useLike = () => {
   const handleSetIsLiked = () => {
     setIsLiked(!isLiked)
   }
-  const handleClickLike = (id: number) => {
+  const handleClickLike = (postId: number) => {
     handleSetIsLiked()
     // api通信の関数
   }

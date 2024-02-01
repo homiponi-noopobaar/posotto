@@ -1,6 +1,5 @@
 'use client'
 import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
-import PostCards from '@/components/posts/PostCards'
 import { useParams } from 'next/navigation'
 import PostCard from '@/components/posts/PostCard'
 import RepliesCard from '@/components/posts/RepliesCard'

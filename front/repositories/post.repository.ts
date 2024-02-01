@@ -30,4 +30,14 @@ export class PostRepository implements PostInterface {
     const data = await response.json()
     return data
   }
+
+  async deletePost(id: number): Promise<void> {
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`, {
+        method: 'DELETE',
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 }

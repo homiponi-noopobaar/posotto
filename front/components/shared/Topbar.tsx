@@ -1,15 +1,6 @@
 import { BG_COLOR } from '@/variants'
 import { UserButton, SignedOut, SignInButton, SignedIn } from '@clerk/nextjs'
-import {
-  Box,
-  Button,
-  Center,
-  Heading,
-  LinkBox,
-  LinkOverlay,
-  Spacer,
-} from '@yamada-ui/react'
-import Link from 'next/link'
+import { Box, Center, Image, LinkBox, LinkOverlay } from '@yamada-ui/react'
 
 export default function Topbar() {
   return (
@@ -33,11 +24,15 @@ export default function Topbar() {
       </Box>
       <LinkBox>
         <LinkOverlay href="/home" />
-        <Heading as="h2" flexGrow={1} textAlign="center">
-          posotto
-        </Heading>
+        <Center>
+          <Image
+            src="/posotto_title_3.svg"
+            alt="posotto"
+            w="50%"
+            maxW="300px"
+          />
+        </Center>
       </LinkBox>
-      {/* ↑あとでアイコンの画像に変更する */}
     </Center>
   )
 }
