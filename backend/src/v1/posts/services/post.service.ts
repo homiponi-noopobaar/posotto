@@ -45,5 +45,9 @@ export class PostService {
     const posts = await this.postRepository.findAllPosts();
     return posts;
   }
-  // 他のメソッド（updatePost, deletePostなど）も同様に定義
+  
+  async getPostDetail(id: number) {
+    const post = await this.postRepository.findPostById(id);
+    return post;
+  }
 }

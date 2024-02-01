@@ -5,6 +5,7 @@ import {
   UploadedFile,
   Body,
   Get,
+  Param,
   UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -19,6 +20,11 @@ export class PostsController {
   @Get()
   async fetchAllPosts() {
     return await this.appService.findAllPosts();
+  }
+
+  @Get("/:PostId")
+  async getPostDetail(@Param('PostId') postId: number) {
+    return await this.appService.getPostDetail(postId);
   }
 
   @Post()
