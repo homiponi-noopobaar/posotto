@@ -66,20 +66,19 @@ export default function PostContent(post: Post) {
             <NeumoIconButton
               isPressed={isLiked}
               handleClick={() => handleClickLike(post.id)}
-              icon={isLiked ? faSolidHeart : faRegularHeart}
+              iconElem={
+                <FontAwesomeIcon
+                  icon={isLiked ? faSolidHeart : faRegularHeart}
+                  fontSize="sm"
+                />
+              }
             />
             <NeumoIconButton
               handleClick={() =>
                 handlePushRouter(`/${post.user.publicId}/${post.id}`)
               }
-              icon={faComment}
+              iconElem={<FontAwesomeIcon icon={faComment} fontSize="sm" />}
             />
-            <AvatarGroup size="sm" max={3}>
-              <Avatar />
-              <Avatar />
-              <Avatar />
-              <Avatar />
-            </AvatarGroup>
           </HStack>
         </VStack>
       </HStack>
