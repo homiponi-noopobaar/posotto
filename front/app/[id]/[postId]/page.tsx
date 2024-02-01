@@ -8,21 +8,12 @@ import RepliesCard from '@/components/posts/RepliesCard'
 
 export default function PostDetail() {
   const params = useParams()
-  console.log(params)
   // params.postIdからpostを取得するapiを叩く
   const post = posts[0]
   return (
-    <Stack
-      direction="column"
-      minH="100vh"
-      w="full"
-      bg="#eff2f9"
-      alignItems="center"
-    >
-      {/* <Center w={{ base: 'full', lg: '100%' }}> */}
+    <Stack direction="column" minH="100vh" w="full" alignItems="center">
       <PostCard {...post} />
       <RepliesCard posts={posts} />
-      {/* </Center> */}
       <Spacer />
     </Stack>
   )
