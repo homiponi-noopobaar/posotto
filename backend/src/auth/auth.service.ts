@@ -16,4 +16,8 @@ export class AuthService {
       throw new Error('User authentication failed');
     }
   }
+
+  async getCrrentUserId(){
+    return 'user_2bZsg5vIrB06IKeLE7eYyecxop0'
+  }
 }

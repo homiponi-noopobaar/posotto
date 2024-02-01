@@ -42,6 +42,7 @@ export class PostService {
   }
 
   async findAllPosts() {
+    const user_id = await this.authService.getCrrentUserId();
     const posts = await this.postRepository.findAllPosts();
     const newPosts = posts.map((post) => {
       const favorites = post.favorites;
@@ -51,6 +52,7 @@ export class PostService {
   }
   
   async getPostDetail(id: number) {
+    const user_id = await this.authService.getCrrentUserId();
     const post = await this.postRepository.findPostById(id);
     const favorites = post.favorites;
     const newPost = {id: post.id, user: post.user, content: post.content, created_at: post.created_at, _count: post._count, isLiked: favorites.some((favorite) => favorite.user_id === user_id)};
