@@ -40,7 +40,7 @@ elif sentiment[0]['label'] == 'NEGATIVE' and score >= 0.99:
     ja_text += "..."
 
 # 感情値確認用
-print(f"Sentiment: {sentiment}")
+# print(f"Sentiment: {sentiment}")
 
 #投稿内容
 print(f"{ja_text}")
