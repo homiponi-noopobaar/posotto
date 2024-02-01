@@ -9,6 +9,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   HStack,
+  Progress,
   Spacer,
   Text,
   VStack,
@@ -17,7 +18,9 @@ import {
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
 import { currentUser } from '@clerk/nextjs'
-import { BG_COLOR } from '@/variants'
+import { BG_COLOR, ICON_BOX_SHADOW_PRESSED } from '@/variants'
+import { NeumoIconButton } from '../elements/NeumoIconButton'
+import { useState, useRef } from 'react'
 
 interface Props {
   user: {
@@ -28,21 +31,80 @@ interface Props {
 }
 
 export default function Menubar({ user }: Props) {
+  // TODO: コンポーネント化する
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // console.log(currentUser)
+  const [isRecording, setIsRecording] = useState(false)
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null)
+  // const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
+  const [audioUrl, setAudioUrl] = useState<string | null>(null) // デバッグ用
+  const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [progress, setProgress] = useState(0) // 追加: 進捗率を追跡
+
+  const startRecording = async () => {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        })
+        mediaRecorderRef.current = new MediaRecorder(stream)
+        const audioChunks: BlobPart[] = []
+
+        mediaRecorderRef.current.ondataavailable = (e) => {
+          audioChunks.push(e.data)
+        }
+
+        mediaRecorderRef.current.onstop = () => {
+          const audioBlob = new Blob(audioChunks, { type: 'audio/wav' })
+          const audioUrl = URL.createObjectURL(audioBlob)
+          setAudioUrl(audioUrl)
+        }
+
+        mediaRecorderRef.current.start()
+        setIsRecording(true)
+        setProgress(0) // 開始時に進捗率を0にリセット
+
+        recordingTimeoutRef.current = setInterval(() => {
+          setProgress((prevProgress) => {
+            if (prevProgress < 100) {
+              return prevProgress + 2 // 10秒で100%に達するためには、0.1秒ごとに1%ずつ増やす
+            }
+            return prevProgress // 100%に達したら増やさない
+          })
+        }, 100) // 0.1秒ごとに更新
+
+        // 5秒後に録音を停止
+        setTimeout(() => {
+          stopRecording()
+        }, 5000)
+      } catch (err) {
+        console.error('Error accessing the microphone', err)
+      }
+    }
+  }
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop()
+      setIsRecording(false)
+      clearInterval(recordingTimeoutRef.current ?? undefined) // 録音停止時に進捗率の更新を停止
+      recordingTimeoutRef.current = null
+      setProgress(0) // 進捗率をリセット
+    }
+  }
+  const handleButtonClick = () => {
+    if (isRecording) {
+      stopRecording()
+    } else {
+      startRecording()
+    }
+  }
+
   return (
     <Center h="6em" w="full" pos="fixed" bottom="0">
-      <Button
-        onClick={onOpen}
-        h="4em"
-        w="4em"
-        borderRadius="50%"
-        boxShadow="28px 28px 56px #c4c6cc,
-             -28px -28px 56px #ffffff"
-      >
-        <FontAwesomeIcon icon={faMicrophone} fontSize="2em" color="gray.600" />
-      </Button>
-
+      <NeumoIconButton
+        iconElem={<FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />}
+        handleClick={onOpen}
+        size="lg"
+      />
       <Drawer
         isOpen={isOpen}
         onClose={onClose}
@@ -71,7 +133,6 @@ export default function Menubar({ user }: Props) {
                 <Box w={{ base: 'full', md: '600px' }} pe="md">
                   <Text wordBreak="keep-all" overflowWrap="anywhere">
                     入力内容。
-                    こんな感じで、入力内容を表示する。こんな感じで、入力内容を表示する。こんな感じで入力内容を表示する。いい感じに折り返す機能としてwordBreak=keepallとoverflowWrap=anywhereつけてるけど実際これどうですかね
                   </Text>
                 </Box>
               </VStack>
@@ -80,9 +141,35 @@ export default function Menubar({ user }: Props) {
         </DrawerBody>
         <Spacer />
         <DrawerFooter justifyContent="center">
-          <Button variant="ghost" onClick={onClose}>
-            posotto
-          </Button>
+          <VStack gap="1em">
+            {isRecording && (
+              <Progress
+                value={progress}
+                filledTrackColor="gray.800"
+                rounded="md"
+                boxShadow={ICON_BOX_SHADOW_PRESSED}
+                p="2px"
+              />
+            )}
+            <Center>
+              <NeumoIconButton
+                iconElem={
+                  <FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />
+                }
+                handleClick={handleButtonClick}
+                isPressed={isRecording}
+                size="lg"
+              />
+              {audioUrl && (
+                <div>
+                  {/* デバッグ用
+                  <audio controls src={audioUrl}>
+                    Your browser does not support the audio element.
+                  </audio> */}
+                </div>
+              )}
+            </Center>
+          </VStack>
         </DrawerFooter>
       </Drawer>
     </Center>
