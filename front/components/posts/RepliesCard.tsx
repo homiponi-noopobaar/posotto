@@ -1,13 +1,14 @@
 import { Divider, VStack } from '@yamada-ui/react'
 import { Post } from '@/types/data/post'
-import PostContent from './PostContent'
 import { NeumoBox } from '../elements/NeumoBox'
+import PostBody from './PostBody'
 
 interface PostCardsProps {
   posts: Post[]
 }
 
 export default function RepliesCard({ posts }: PostCardsProps) {
+  const isCurrentUsersPost = true // TODO: implement
   return (
     <NeumoBox
       minH="7em"
@@ -20,7 +21,12 @@ export default function RepliesCard({ posts }: PostCardsProps) {
       <VStack alignItems="center">
         {posts.map((post) => (
           <>
-            <PostContent key={post.id} {...post} />
+            <PostBody
+              key={post.id}
+              post={post}
+              hasLikeButton
+              hasDeleteButton={isCurrentUsersPost}
+            />
             <Divider />
           </>
         ))}
