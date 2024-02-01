@@ -1,6 +1,5 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { IconButton } from '@yamada-ui/react'
-import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
+import { IconButton, IconButtonProps } from '@yamada-ui/react'
 import {
   BG_COLOR,
   ICON_BOX_SHADOW_PRESSED,
@@ -8,7 +7,7 @@ import {
 } from '@/variants'
 import React from 'react'
 
-type NeumoIconButtonProps = {
+type NeumoIconButtonProps = IconButtonProps & {
   iconElem: React.ReactElement<IconDefinition>
   isPressed?: boolean
   handleClick: () => void
@@ -18,6 +17,7 @@ export const NeumoIconButton = ({
   iconElem,
   isPressed = false,
   handleClick,
+  ...iconButtonProps
 }: NeumoIconButtonProps) => {
   return (
     <IconButton
@@ -29,6 +29,7 @@ export const NeumoIconButton = ({
       }
       onClick={handleClick}
       icon={iconElem}
+      {...iconButtonProps}
     />
   )
 }
