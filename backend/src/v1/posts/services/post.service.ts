@@ -1,6 +1,6 @@
 // src/posts/services/post.service.ts
 
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { PostRepository } from '../repositories/post.repository';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { AudioRecognitionService } from './audio-recognition.service';

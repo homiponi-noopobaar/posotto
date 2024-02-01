@@ -7,6 +7,7 @@ interface PostCardsProps {
 }
 
 export default function PostCards({ posts }: PostCardsProps) {
+  console.log(posts)
   return (
     <VStack alignItems="center">
       {posts.map((post) => (
