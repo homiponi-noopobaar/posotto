@@ -13,15 +13,17 @@ type NeumoIconButtonProps = IconButtonProps & {
   handleClick: () => void
 }
 
-export const NeumoIconButton = ({
-  iconElem,
-  isPressed = false,
-  handleClick,
-  ...iconButtonProps
-}: NeumoIconButtonProps) => {
+export const NeumoIconButton = (props: NeumoIconButtonProps) => {
+  const {
+    iconElem,
+    isPressed = false,
+    handleClick,
+    size = 'sm',
+    ...iconButtonProps
+  } = props
   return (
     <IconButton
-      size="sm"
+      size={size}
       borderRadius="50%"
       bgColor={BG_COLOR}
       boxShadow={
@@ -29,6 +31,7 @@ export const NeumoIconButton = ({
       }
       onClick={handleClick}
       icon={iconElem}
+      _active={{ boxShadow: ICON_BOX_SHADOW_PRESSED }}
       {...iconButtonProps}
     />
   )
