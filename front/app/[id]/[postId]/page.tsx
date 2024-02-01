@@ -1,6 +1,5 @@
 'use client'
 import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
-
 import PostCards from '@/components/posts/PostCards'
 import { useParams } from 'next/navigation'
 import PostCard from '@/components/posts/PostCard'
@@ -12,8 +11,8 @@ export default function PostDetail() {
   // const post = posts[0]
   return (
     <Stack direction="column" minH="100vh" w="full" alignItems="center">
-      {/* <PostCard {...post} />
-      <RepliesCard posts={posts} /> */}
+      {/* <PostCard {...post} /> */}
+      {/* <RepliesCard posts={posts} /> */}
       <Spacer />
     </Stack>
   )

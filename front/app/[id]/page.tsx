@@ -27,7 +27,6 @@ export default async function Home(props: Props) {
   return (
     <Stack direction="column" minH="100vh" w="full">
       <UserProfile />
-
       <Suspense fallback={<div>Loading...</div>}>
         <PostCards posts={dbUser.posts} />
       </Suspense>

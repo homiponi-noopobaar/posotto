@@ -6,12 +6,10 @@ import {
   Body,
   Get,
   Param,
-  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { PostService } from '../services/post.service';
-import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('v1/posts')
 export class PostsController {
