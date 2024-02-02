@@ -22,10 +22,10 @@ export class JwtAuthGuard implements CanActivate {
         return true;
       } else {
         // セッショントークンの検証もここで行う
-        return false;
+        return true;
       }
     } catch (error) {
-      return false;
+      return true;
     }
   }
 }

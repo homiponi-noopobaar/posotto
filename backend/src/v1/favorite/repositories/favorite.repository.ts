@@ -16,7 +16,6 @@ export class FavoriteRepository {
   }
 
   async deleteFavorite(user_id: string,post_id: bigint): Promise<Favorite> {
-    console.log(user_id, post_id,"deleteFavorite")
     return this.prisma.favorite.delete({
       where: {
         user_id_post_id: {
@@ -28,7 +27,6 @@ export class FavoriteRepository {
   }
 
   async findFavoriteByUserIdAndPostId(user_id: string, post_id: bigint): Promise<Favorite | null> {
-    console.log(user_id, post_id,"createFavorite")
     return this.prisma.favorite.findUnique({
       where: {
         user_id_post_id: {
