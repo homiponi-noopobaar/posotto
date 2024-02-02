@@ -17,7 +17,7 @@ import {
 } from '@yamada-ui/react'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faMicrophone } from '@fortawesome/free-solid-svg-icons'
-import { currentUser } from '@clerk/nextjs'
+import { auth, currentUser } from '@clerk/nextjs'
 import { BG_COLOR, ICON_BOX_SHADOW_PRESSED } from '@/variants'
 import { NeumoIconButton } from '../elements/NeumoIconButton'
 import { useState, useRef } from 'react'
@@ -95,12 +95,17 @@ export default function Menubar({ user }: Props) {
       setProgress(0)
       if (audioBlob) {
         try {
-          const res = await PostSev.createPost({
-            content: audioBlob,
-            created_at: new Date(),
-            isLiked: false,
-            _count: { favorites: 0, comments: 0 },
-          })
+          const { getToken } = auth()
+          const token = await getToken()
+          const res = await PostSev.createPost(
+            {
+              content: audioBlob,
+              created_at: new Date(),
+              isLiked: false,
+              _count: { favorites: 0, comments: 0 },
+            },
+            token,
+          )
           console.log(res)
         } catch (err) {
           console.error(err)
