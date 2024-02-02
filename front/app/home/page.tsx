@@ -1,11 +1,9 @@
-import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
+import { Center, Spacer, Stack } from '@yamada-ui/react'
 import { PostService } from './_services/post.service'
 import { PostRepository } from '@/repositories/post.repository'
 import { Suspense } from 'react'
-import PostCard from '@/components/posts/PostCard'
+import PostCards from '@/components/posts/PostCards'
 import { auth } from '@clerk/nextjs'
-
-// import { posts } from '@/constants'
 
 export default async function Home() {
   const PostRepo = new PostRepository()
@@ -20,17 +18,7 @@ export default async function Home() {
     <Stack direction="column" minH="100vh" w="full">
       <Center w="full">
         <Suspense fallback={<div>Loading...</div>}>
-          <VStack alignItems="center">
-            {posts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                hasLikeButton
-                hasCommentButton
-                hasDeleteButton={isCurrentUsersPost}
-              />
-            ))}
-          </VStack>
+          <PostCards posts={posts} />
         </Suspense>
       </Center>
       <Spacer />

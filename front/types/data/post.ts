@@ -1,3 +1,5 @@
+import { BG_COLOR } from './../../variants/index'
+import { create } from 'domain'
 export type Post = {
   id: number
   user: User
@@ -24,4 +26,11 @@ type User = {
   nickname: string
   img_url?: string
   isPublic: boolean
+}
+
+export type PostDraft = {
+  content: Blob
+  created_at: Date
+  isLiked: boolean
+  _count: { favorites: number; comments: number }
 }

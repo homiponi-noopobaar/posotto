@@ -1,4 +1,4 @@
-import { Post } from '@/types/data/post'
+import { Post, PostDraft } from '@/types/data/post'
 import { PostInterface } from '@/types/interface/post.interface'
 import { Token } from '@/types/token'
 
@@ -12,13 +12,13 @@ export class PostRepository implements PostInterface {
     return PostRepository.instance
   }
 
-  async findAll(token:Token): Promise<Post[]> {
+  async findAll(token: Token): Promise<Post[]> {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
         method: 'GET',
-        headers:{
-          'Authorization': `Bearer ${token}`
-        }
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
       const data = await response.json()
       return data
@@ -28,24 +28,27 @@ export class PostRepository implements PostInterface {
     }
   }
 
-  async createPost(post: Post,token:Token): Promise<Post> {
+  async createPost(postDraft: PostDraft, token: Token): Promise<Post> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'POST',
-      headers:{
-        'Authorization': `Bearer ${token}`
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(post),
+      body: JSON.stringify(postDraft),
     })
+    if (!response.ok) {
+      throw new Error(`Error creating post ${response.status}`)
+    }
     const data = await response.json()
     return data
   }
 
-  async deletePost(id: number,token:Token): Promise<void> {
+  async deletePost(id: number, token: Token): Promise<void> {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}`, {
         method: 'DELETE',
-        headers:{
-          'Authorization': `Bearer ${token}`
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(id),
       })

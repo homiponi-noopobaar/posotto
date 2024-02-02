@@ -16,3 +16,9 @@ export const BOX_SHADOW_UNPRESSED =
   '20px 20px 52px #c8c3b8,-20px -20px 52px #fffffa'
 
 export const BG_COLOR = '#ebe5d9'
+
+export const BOX_SHADOW_PRESSED =
+  'inset 18px 18px 36px #c8c3b8, inset -18px -18px 36px #fffffa'
+
+export const BOX_SHADOW_INPUT =
+  'inset 9px 9px 15px #b7b3a9,inset -9px -9px 15px #ffffff'
