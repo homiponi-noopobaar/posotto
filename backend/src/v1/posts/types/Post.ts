@@ -3,8 +3,8 @@ export type Post ={
     user:User,
     content:string,
     created_at:Date,
-    favorites:Favorite[],
-    _count: {favorites:number}
+    favorites?:Favorite[],
+    _count?: {favorites:number}
 }
 
 export type PostDetail =Post & {

@@ -2,7 +2,7 @@ import { Controller, Get, Param, NotFoundException, UseGuards, Post, Body } from
 import { CommentService } from '../services/comment.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('v1/Comment')
+@Controller('v1/comment')
 export class CommentController {
     constructor(private readonly commentService: CommentService) {}
     
