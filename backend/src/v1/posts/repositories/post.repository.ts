@@ -6,7 +6,11 @@ import { Post, PostDetail } from '../types/Post';
 export class PostRepository {
   constructor(private prisma: PrismaService) {}
 
-  async createPost(data: { content: string; user_id: string; created_at: Date; }): Promise<Post> {
+  async createPost(data: {
+    content: string;
+    user_id: string;
+    created_at: Date;
+  }): Promise<Post> {
     const { content, user_id, created_at } = data;
     try {
       const post = this.prisma.post.create({
@@ -27,7 +31,12 @@ export class PostRepository {
         },
       });
       const newPost = await this.prisma.$transaction([post, user]);
-      return { ...newPost[0], user: newPost[1] };
+      return {
+        ...newPost[0],
+        user: newPost[1],
+        favorites: [],
+        _count: { favorites: 0 },
+      };
     } catch (e) {
       console.log(e);
     }
@@ -65,10 +74,6 @@ export class PostRepository {
               },
             },
           },
-          favorites: { 
-            select: { post_id: true, user_id: true} 
-          },
-          _count: { select: { favorites: true } },
         },
         where: { id },
       });
@@ -79,8 +84,15 @@ export class PostRepository {
     }
   }
 
-  async findAllPosts(data: {year: number, month: number, day: number, hour: number, minute: number, second: number}): Promise<Post[]> {
-    const {year, month, day, hour, minute, second} = data;
+  async findAllPosts(data: {
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    minute: number;
+    second: number;
+  }): Promise<Post[]> {
+    const { year, month, day, hour, minute, second } = data;
     // dataには24時間以内の投稿のみを取得するための日付データが入っている
     // dataの時間制限以内の投稿を取得する
     //現在時刻を入れる
@@ -98,28 +110,26 @@ export class PostRepository {
           gte: limitDate,
         },
       },
-      select: { 
+      select: {
         id: true,
         content: true,
         created_at: true,
         user: {
-          select:{
+          select: {
             id: true,
             publicId: true,
             img_url: true,
             nickname: true,
-            isPublic: true
-          }
+            isPublic: true,
+          },
         },
         favorites: {
-          select: { post_id: true, user_id: true}
+          select: { post_id: true, user_id: true },
         },
         _count: { select: { favorites: true } },
       },
     });
 
     return posts;
-}
-
-
+  }
 }
