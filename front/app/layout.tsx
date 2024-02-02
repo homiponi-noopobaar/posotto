@@ -77,7 +77,7 @@ export default async function RootLayout({
                 </GridItem>
               </Grid>
             </Box>
-            <Menubar user={userData} />
+            <Menubar />
           </UIProvider>
         </body>
       </html>
