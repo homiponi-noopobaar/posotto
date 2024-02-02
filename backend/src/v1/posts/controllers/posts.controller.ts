@@ -23,6 +23,7 @@ export class PostsController {
   @Get()
   async fetchAllPosts(@Request() req) {
     if (!req.user_id) {
+      console.log('no user_id');
       return await this.appService.findAllPosts({ user_id: null });
     } else {
       return await this.appService.findAllPosts({ user_id: req.user_id });

@@ -45,8 +45,10 @@ export class UserRepository {
     return profile;
   }
 
+  // todo: error handling
   async createUser(user: RequestCreateUser): Promise<ResponseCreateUser> {
     try {
+      console.log(user);
       const createdUser = await this.prisma.user.create({
         data: user,
       });
