@@ -1,10 +1,10 @@
 export type Post ={
-    id:number,
+    id:bigint,
     user:User,
     content:string,
     created_at:Date,
-    isLiked:boolean
-    _count: {favorites:number,comments:number}
+    favorites?:Favorite[],
+    _count?: {favorites:number}
 }
 
 export type PostDetail =Post & {
@@ -12,7 +12,7 @@ export type PostDetail =Post & {
 }
 
 export type Comment={
-    id:number,
+    id:bigint,
     content:string
     created_at:Date
     user:User
@@ -24,4 +24,9 @@ type User ={
     nickname:string,
     img_url?:string,
     isPublic:boolean,
+}
+
+type Favorite ={
+    post_id:bigint
+    user_id:string
 }
