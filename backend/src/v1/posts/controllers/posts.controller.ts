@@ -6,23 +6,32 @@ import {
   Body,
   Get,
   Param,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { PostService } from '../services/post.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+
 
 @Controller('v1/posts')
 export class PostsController {
   constructor(private readonly appService: PostService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
-  async fetchAllPosts() {
-    return await this.appService.findAllPosts();
+  async fetchAllPosts(@Request() req) {
+    if (!req.user_id) {
+      return await this.appService.findAllPosts({ user_id: null });
+    } else {
+      return await this.appService.findAllPosts({ user_id: req.user_id });
+    }
   }
 
-  @Get("/:PostId")
+  @Get('/:PostId')
   async getPostDetail(@Param('PostId') postId: number) {
-    return await this.appService.getPostDetail(postId);
+    return await this.appService.getPostDetail({ postId: postId });
   }
 
   @Post()
@@ -32,7 +41,6 @@ export class PostsController {
     @UploadedFile() content: Express.Multer.File,
     @Body() createPostDto: CreatePostDto,
   ) {
-
     createPostDto.content = content;
 
     return await this.appService.createPost(createPostDto);

@@ -7,7 +7,6 @@ import { PostService } from './v1/posts/services/post.service';
 import { PostRepository } from './v1/posts/repositories/post.repository';
 import { AudioRecognitionService } from './v1/posts/services/audio-recognition.service';
 import { PrismaService } from 'prisma/prisma.service';
-import { AuthService } from './auth/auth.service';
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { UserController } from './v1/user/controllers/user.controller';
@@ -28,8 +27,21 @@ import { CommentController } from './v1/comment/controllers/comment.controller';
 import { CommentModule } from './v1/comment/comment.module';
 
 @Module({
-  imports: [PostModule, UserModule, FollowModule, FavoriteModule, CommentModule],
-  controllers: [AppController, PostsController, UserController, FollowController, FavoriteController, CommentController],
+  imports: [
+    PostModule,
+    UserModule,
+    FollowModule,
+    FavoriteModule,
+    CommentModule,
+  ],
+  controllers: [
+    AppController,
+    PostsController,
+    UserController,
+    FollowController,
+    FavoriteController,
+    CommentController,
+  ],
   providers: [
     AppService,
     PostService,
@@ -44,7 +56,6 @@ import { CommentModule } from './v1/comment/comment.module';
     CommentRepository,
     AudioRecognitionService,
     PrismaService,
-    AuthService,
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,

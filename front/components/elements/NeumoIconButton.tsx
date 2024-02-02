@@ -10,7 +10,7 @@ import React from 'react'
 type NeumoIconButtonProps = IconButtonProps & {
   iconElem: React.ReactElement<IconDefinition>
   isPressed?: boolean
-  handleClick: () => void
+  handleClick?: () => void
 }
 
 export const NeumoIconButton = (props: NeumoIconButtonProps) => {

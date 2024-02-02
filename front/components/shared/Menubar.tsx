@@ -21,6 +21,9 @@ import { currentUser } from '@clerk/nextjs'
 import { BG_COLOR, ICON_BOX_SHADOW_PRESSED } from '@/variants'
 import { NeumoIconButton } from '../elements/NeumoIconButton'
 import { useState, useRef } from 'react'
+import { PostRepository } from '@/repositories/post.repository'
+import { PostService } from './_services/post.service'
+import { DBUser, User } from '@/types/data/user'
 
 interface Props {
   user: {
@@ -35,7 +38,7 @@ export default function Menubar({ user }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isRecording, setIsRecording] = useState(false)
   const mediaRecorderRef = useRef<MediaRecorder | null>(null)
-  // const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null)
   const [audioUrl, setAudioUrl] = useState<string | null>(null) // デバッグ用
   const recordingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [progress, setProgress] = useState(0) // 追加: 進捗率を追跡
@@ -55,8 +58,7 @@ export default function Menubar({ user }: Props) {
 
         mediaRecorderRef.current.onstop = () => {
           const audioBlob = new Blob(audioChunks, { type: 'audio/wav' })
-          const audioUrl = URL.createObjectURL(audioBlob)
-          setAudioUrl(audioUrl)
+          setAudioBlob(audioBlob)
         }
 
         mediaRecorderRef.current.start()
@@ -81,13 +83,29 @@ export default function Menubar({ user }: Props) {
       }
     }
   }
-  const stopRecording = () => {
+  const PostRepo = new PostRepository()
+  const PostSev = new PostService(PostRepo)
+
+  const stopRecording = async () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop()
       setIsRecording(false)
-      clearInterval(recordingTimeoutRef.current ?? undefined) // 録音停止時に進捗率の更新を停止
+      clearInterval(recordingTimeoutRef.current ?? undefined)
       recordingTimeoutRef.current = null
-      setProgress(0) // 進捗率をリセット
+      setProgress(0)
+      if (audioBlob) {
+        try {
+          const res = await PostSev.createPost({
+            content: audioBlob,
+            created_at: new Date(),
+            isLiked: false,
+            _count: { favorites: 0, comments: 0 },
+          })
+          console.log(res)
+        } catch (err) {
+          console.error(err)
+        }
+      }
     }
   }
   const handleButtonClick = () => {

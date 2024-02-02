@@ -4,7 +4,6 @@ import { PostService } from './services/post.service';
 import { PrismaService } from 'prisma/prisma.service';
 import { AudioRecognitionModule } from './module/audio-recognition.module';
 import { AudioRecognitionService } from './services/audio-recognition.service';
-import { AuthService } from 'src/auth/auth.service';
 import { PostRepository } from './repositories/post.repository';
 
 @Module({
@@ -14,7 +13,6 @@ import { PostRepository } from './repositories/post.repository';
     PostRepository,
     PostService,
     AudioRecognitionService,
-    AuthService,
     PrismaService,
   ],
 })

@@ -69,11 +69,7 @@ export default async function RootLayout({
                 <GridItem>
                   <LeftSidebar />
                 </GridItem>
-                <GridItem
-                  w={{ base: 'full', lg: '61em' }}
-                  py="6em"
-                  // bg={BG_COLOR}
-                >
+                <GridItem w={{ base: 'full', lg: '61em' }} py="6em">
                   {children}
                 </GridItem>
                 <GridItem>

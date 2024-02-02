@@ -1,14 +1,16 @@
-import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
+import { Center, Spacer, Stack } from '@yamada-ui/react'
 import { PostService } from './_services/post.service'
 import { PostRepository } from '@/repositories/post.repository'
 import { Suspense } from 'react'
-import PostCard from '@/components/posts/PostCard'
-// import { posts } from '@/constants'
+import PostCards from '@/components/posts/PostCards'
+import { auth } from '@clerk/nextjs'
 
 export default async function Home() {
   const PostRepo = new PostRepository()
   const PostSev = new PostService(PostRepo)
-  const posts = await PostSev.findAll()
+  const { getToken } = auth()
+  const token = await getToken()
+  const posts = await PostSev.findAll(token)
   const isCurrentUsersPost = true // TODO: implement
   if (!posts) return <div>Loading...</div>
 
@@ -16,17 +18,7 @@ export default async function Home() {
     <Stack direction="column" minH="100vh" w="full">
       <Center w="full">
         <Suspense fallback={<div>Loading...</div>}>
-          <VStack alignItems="center">
-            {posts.map((post) => (
-              <PostCard
-                key={post.id}
-                post={post}
-                hasLikeButton
-                hasCommentButton
-                hasDeleteButton={isCurrentUsersPost}
-              />
-            ))}
-          </VStack>
+          <PostCards posts={posts} />
         </Suspense>
       </Center>
       <Spacer />

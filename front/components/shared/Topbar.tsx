@@ -1,8 +1,14 @@
+'use client'
 import { BG_COLOR } from '@/variants'
 import { UserButton, SignedOut, SignInButton, SignedIn } from '@clerk/nextjs'
 import { Box, Center, Image, LinkBox, LinkOverlay } from '@yamada-ui/react'
+import { NeumoIconButton } from '@/components/elements/NeumoIconButton'
+import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
+import { faRightToBracket, faPager } from '@fortawesome/free-solid-svg-icons'
+import { useCustomRouter } from '@/hooks/useCustomRouter'
 
 export default function Topbar() {
+  const { handlePushRouter } = useCustomRouter()
   return (
     <Center
       bg={BG_COLOR}
@@ -19,7 +25,14 @@ export default function Topbar() {
           <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <SignedOut>
-          <SignInButton />
+          <SignInButton>
+            <NeumoIconButton
+              size="md"
+              iconElem={
+                <FontAwesomeIcon icon={faRightToBracket} fontSize="md" />
+              }
+            />
+          </SignInButton>
         </SignedOut>
       </Box>
       <LinkBox>
@@ -33,6 +46,13 @@ export default function Topbar() {
           />
         </Center>
       </LinkBox>
+      <Box pos="absolute" right={0} margin="lg">
+        <NeumoIconButton
+          size="md"
+          iconElem={<FontAwesomeIcon icon={faPager} fontSize="md" />}
+          handleClick={() => handlePushRouter('/')}
+        />
+      </Box>
     </Center>
   )
 }
