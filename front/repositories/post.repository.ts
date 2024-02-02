@@ -1,5 +1,6 @@
 import { Post } from '@/types/data/post'
 import { PostInterface } from '@/types/interface/post.interface'
+import { useAuth } from '@clerk/nextjs'
 
 export class PostRepository implements PostInterface {
   private static instance: PostRepository
@@ -13,7 +14,13 @@ export class PostRepository implements PostInterface {
 
   async findAll(): Promise<Post[]> {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
+      const { getToken } = useAuth()
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      })
       const data = await response.json()
       return data
     } catch (err) {
