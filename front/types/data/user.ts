@@ -13,4 +13,10 @@ export type DBUser = {
   nickname: string
 }
 
+export type UserInit = {
+  publicId: string
+  nickname: string
+  img_url?: string
+}
+
 export type UserPost = Omit<Post, 'user'>
