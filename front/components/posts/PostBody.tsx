@@ -1,12 +1,10 @@
 'use client'
 import { Box, Text, Avatar, VStack, HStack, Spacer } from '@yamada-ui/react'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
-import {
-  faEllipsis,
-  faHeart as faSolidHeart,
-} from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faSolidHeart } from '@fortawesome/free-solid-svg-icons'
 import {
   faHeart as faRegularHeart,
+  faTrashCan,
   faComment,
 } from '@fortawesome/free-regular-svg-icons'
 import { Post } from '@/types/data/post'
@@ -33,15 +31,25 @@ export default function PostBody(props: PostBodyProps) {
       <HStack gap="0" mb="0.5em" alignItems="start" w="full">
         <VStack gap="1em" ps="md">
           <HStack gap="1em" justify="space-between">
-            <Avatar size="sm" />
+            <Avatar size="sm" opacity={contentOpacity} />
             <VStack gap="0">
-              <Text fontWeight="bold">{post.user.nickname}</Text>
-              <Text fontSize="2xs">{timeSinceText}</Text>
+              <Text fontWeight="bold" opacity={contentOpacity}>
+                {post.user.nickname}
+              </Text>
+              <Text fontSize="2xs" opacity={contentOpacity}>
+                {timeSinceText}
+              </Text>
             </VStack>
             <Spacer />
             {hasDeleteButton && (
               <NeumoIconButton
-                iconElem={<FontAwesomeIcon icon={faEllipsis} fontSize="md" />}
+                iconElem={
+                  <FontAwesomeIcon
+                    icon={faTrashCan}
+                    fontSize="md"
+                    opacity={contentOpacity}
+                  />
+                }
                 handleClick={() => handleDeletePost(post.id)}
               />
             )}
@@ -64,6 +72,7 @@ export default function PostBody(props: PostBodyProps) {
                   <FontAwesomeIcon
                     icon={isLiked ? faSolidHeart : faRegularHeart}
                     fontSize="sm"
+                    opacity={contentOpacity}
                   />
                 }
               />
@@ -73,7 +82,13 @@ export default function PostBody(props: PostBodyProps) {
                 handleClick={() =>
                   handlePushRouter(`/${post.user.publicId}/${post.id}`)
                 }
-                iconElem={<FontAwesomeIcon icon={faComment} fontSize="sm" />}
+                iconElem={
+                  <FontAwesomeIcon
+                    icon={faComment}
+                    fontSize="sm"
+                    opacity={contentOpacity}
+                  />
+                }
               />
             )}
           </HStack>
