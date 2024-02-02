@@ -31,6 +31,4 @@ type User = {
 export type PostDraft = {
   content: Blob
   created_at: Date
-  isLiked: boolean
-  _count: { favorites: number; comments: number }
 }
