@@ -1,12 +1,15 @@
+import sys
 import speech_recognition as sr
 from transformers import pipeline, MarianMTModel, MarianTokenizer
 import torch
 
+# コマンドライン引数からファイルパスを取得
+file_path = sys.argv[1]
+
 # 音声認識オブジェクト
 recognizer = sr.Recognizer()
 
-# WAVファイルの読み込み(適宜パスの変更をお願いします)
-with sr.AudioFile('C:/Users/Green/posotto/backend/lib/speech_recognition/wav/おはようございます.wav') as source:
+with sr.AudioFile(file_path) as source:
     # 音声データの読み込み
     audio_data = recognizer.record(source)
 
@@ -24,8 +27,8 @@ def translate_ja_to_en(text):
 sentiment_pipeline = pipeline('sentiment-analysis')
 
 # 日本語テキスト(ここに音声ファイルのテキスト化したものを格納する)
-# ja_text = recognizer.recognize_google(audio_data, language="ja-JP")
-ja_text = "地味にもう三時なのやばいね"
+ja_text = recognizer.recognize_google(audio_data, language="ja-JP")
+
 # 翻訳を実行
 en_text = translate_ja_to_en(ja_text)
 
