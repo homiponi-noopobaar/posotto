@@ -14,8 +14,8 @@ export class FavoriteService {
       //既に同じuser_idとpost_idの組み合わせがあるか確認
       const favorite = await this.favoriteRepository.findFavoriteByUserIdAndPostId(user_id, post_id);
       if (favorite) {
-        //await this.favoriteRepository.deleteFavorite(favorite.id);
-        //return favorite;
+        await this.favoriteRepository.deleteFavorite(newFavoriteData.user_id, newFavoriteData.post_id);
+        return favorite;
       }else{
         const newPost = await this.favoriteRepository.createFavorite(newFavoriteData);
         return newPost;
