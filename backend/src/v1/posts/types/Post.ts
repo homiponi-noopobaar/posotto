@@ -7,9 +7,9 @@ export type Post ={
     _count?: {favorites:number}
 }
 
-export type PostDetail =Post & {
-    comments: Comment[]
-}
+export type PostDetail = Post & {
+  comments: Comment[];
+};
 
 export type Comment={
     id:bigint,

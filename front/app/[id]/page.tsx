@@ -14,15 +14,16 @@ export default async function Home(props: Props) {
   const { id } = props.params
   const UserRepo = new UserRepository()
   const UserSev = new UserService(UserRepo)
-  const dbUser = await UserSev.findByPublicId(id)
+  const { getToken } = auth()
+  const token = await getToken()
+
+  const dbUser = await UserSev.findByPublicId(id, token)
 
   const { userId } = auth()
   if (userId) {
     const user = await currentUser()
   }
   if (!dbUser?.posts) return <div>Loading...</div>
-  console.log('--------------------')
-  console.log(dbUser.posts)
   return (
     <Stack direction="column" minH="100vh" w="full">
       {/* <UserProfile /> */}

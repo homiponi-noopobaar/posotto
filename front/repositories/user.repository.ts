@@ -1,5 +1,6 @@
 import { DBUser} from '@/types/data/user'
 import { UserInterface } from '@/types/interface/user.interface'
+import { Token } from '@/types/token'
 
 export class UserRepository implements UserInterface {
   private static instance: UserRepository
@@ -11,10 +12,15 @@ export class UserRepository implements UserInterface {
     return UserRepository.instance
   }
 
-  async findByPublicId(id: string): Promise<DBUser|null> {
+  async findByPublicId(id: string,token:Token): Promise<DBUser|null> {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,{
+          method: 'GET',
+          headers:{
+            'Authorization': `Bearer ${token}`
+          }
+        }
       )
       const data = await response.json()
       return data
