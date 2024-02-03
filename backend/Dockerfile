@@ -20,7 +20,7 @@ RUN npx prisma generate
 RUN npm run build
 
 # Python、pip、およびFLACをインストール
-RUN apt-get update && apt-get install -y python3 python3-pip python3-venv flac
+RUN apt-get update && apt-get install -y python3 python3-pip python3-venv flac ffmpeg
 
 # Pythonの仮想環境を作成し、その中で必要なパッケージをインストール
 RUN python3 -m venv /opt/venv
@@ -28,6 +28,9 @@ RUN python3 -m venv /opt/venv
 # 仮想環境を有効化し、必要なパッケージをインストール 
 COPY requirements.txt /opt/venv/
 RUN . /opt/venv/bin/activate && pip install -r /opt/venv/requirements.txt
+
+# SentencePieceのインストール
+RUN . /opt/venv/bin/activate && pip install sentencepiece
 
 ENV PYTHON_PATH=/opt/venv/bin/python3
 ENV SCRIPT_PATH=/api/src/lib/speech_recognition/convert_toText.py

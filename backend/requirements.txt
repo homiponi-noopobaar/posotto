@@ -1,1 +1,4 @@
-SpeechRecognition
+SpeechRecognition == 3.10.1
+torch == 2.1.2
+tensorflow == 2.15.0
+transformers == 4.37.2

@@ -1,13 +1,15 @@
+import sys
 import speech_recognition as sr
 from transformers import pipeline, MarianMTModel, MarianTokenizer
 import torch
 
+# コマンドライン引数からファイルパスを取得
+file_path = sys.argv[1]
+
 # 音声認識オブジェクト
 recognizer = sr.Recognizer()
 
-# WAVファイルの読み込み(適宜パスの変更をお願いします)
-with sr.AudioFile('/Users/maedahirotoh14/posotto/backend/src/lib/speech_recognition/wav/おはようございます.wav') as source:
-    
+with sr.AudioFile(file_path) as source:
     # 音声データの読み込み
     audio_data = recognizer.record(source)
 
