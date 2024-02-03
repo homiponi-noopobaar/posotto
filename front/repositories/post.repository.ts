@@ -28,6 +28,20 @@ export class PostRepository implements PostInterface {
     }
   }
 
+  async convertVoiceToText(file: Blob,token:Token): Promise<string> {
+    const formData = new FormData()
+    formData.append('content', file)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/voice`, {
+      method: 'POST',
+      headers:{
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    })
+    const text = await response.text()
+    return text
+  }
+
   async createPost(postDraft: PostDraft, token: Token): Promise<Post> {
     const formData = new FormData()
     formData.append('content', postDraft.content)

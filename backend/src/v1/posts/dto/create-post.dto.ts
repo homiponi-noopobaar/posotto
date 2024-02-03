@@ -1,5 +1,5 @@
 export class CreatePostDto {
-    content: Express.Multer.File; 
-    created_at: Date;
-    user_id: string; 
+    content: string;
+    user_id: string;
+    created_at: Date; 
 }
