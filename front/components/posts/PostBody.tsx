@@ -28,8 +28,8 @@ export default function PostBody(props: PostBodyProps) {
   const { contentOpacity, timeSinceText } = postBodyInfo(post)
   return (
     <>
-      <HStack gap="0" mb="0.5em" alignItems="start" w="full">
-        <VStack gap="1em" ps="md">
+      <HStack gap="0" alignItems="start" w="full">
+        <VStack gap="0.8em" ps="md">
           <HStack gap="1em" justify="space-between">
             <Avatar size="sm" opacity={contentOpacity} />
             <VStack gap="0">

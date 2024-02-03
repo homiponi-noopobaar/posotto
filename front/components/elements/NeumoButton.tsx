@@ -4,6 +4,11 @@ import {
   BASE_COLOR,
   BASE_COLOR_DARK,
   BG_COLOR,
+  BOX_SHADOW_PRESSED,
+  BOX_SHADOW_PRESSED_DARK,
+  BOX_SHADOW_UNPRESSED,
+  BOX_SHADOW_UNPRESSED_DARK,
+  FONT_COLOR,
   ICON_BOX_SHADOW_PRESSED,
   ICON_BOX_SHADOW_UNPRESSED,
 } from '@/variants'
@@ -13,18 +18,33 @@ type NeumoButtonProps = ButtonProps & {
   children?: ReactNode
   isPressed?: boolean
   handleClick?: () => void
+  isDark?: boolean
 }
 
 export const NeumoButton = (props: NeumoButtonProps) => {
-  const { children, isPressed = false, handleClick, ...buttonProps } = props
+  const {
+    children,
+    isPressed = false,
+    handleClick,
+    isDark = false,
+    ...buttonProps
+  } = props
   return (
     <Button
-      bgColor={BG_COLOR}
+      bgColor={isDark ? BASE_COLOR_DARK : BG_COLOR}
+      textColor={isDark ? BASE_COLOR : FONT_COLOR}
       boxShadow={
-        isPressed ? ICON_BOX_SHADOW_PRESSED : ICON_BOX_SHADOW_UNPRESSED
+        isPressed
+          ? isDark
+            ? BOX_SHADOW_PRESSED_DARK
+            : BOX_SHADOW_PRESSED
+          : BOX_SHADOW_UNPRESSED
       }
       onClick={handleClick}
-      _active={{ boxShadow: ICON_BOX_SHADOW_PRESSED }}
+      _active={{ bgColor: BASE_COLOR_DARK, boxShadow: BOX_SHADOW_PRESSED }}
+      _hover={{
+        bgColor: isDark ? BASE_COLOR_DARK : BG_COLOR,
+      }}
       {...buttonProps}
     >
       {children}

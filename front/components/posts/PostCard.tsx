@@ -13,8 +13,8 @@ export default function PostCard(props: PostCardProps) {
         minH="7em"
         mx="md"
         w="90%"
-        p="lg"
-        m="md"
+        p="1.5em"
+        m="sm"
         borderRadius="40px"
         overflow="hidden"
       >
