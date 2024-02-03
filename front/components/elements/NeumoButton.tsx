@@ -1,6 +1,8 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core'
 import { Button, ButtonProps } from '@yamada-ui/react'
 import {
+  BASE_COLOR,
+  BASE_COLOR_DARK,
   BG_COLOR,
   ICON_BOX_SHADOW_PRESSED,
   ICON_BOX_SHADOW_UNPRESSED,

@@ -50,9 +50,10 @@ export default async function RootLayout({
   return (
     <ClerkProvider>
       <html lang="ja">
-        <Head>
+        <head>
+          <link rel="manifest" href="/manifest.json" />
           <script src="@/app/script.js"></script>
-        </Head>
+        </head>
         <body>
           <ColorModeScript type="cookie" nonce="testing" />
           <UIProvider
@@ -77,7 +78,7 @@ export default async function RootLayout({
                 </GridItem>
               </Grid>
             </Box>
-            <Menubar user={userData} />
+            <Menubar />
           </UIProvider>
         </body>
       </html>

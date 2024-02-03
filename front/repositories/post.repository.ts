@@ -29,17 +29,26 @@ export class PostRepository implements PostInterface {
   }
 
   async createPost(postDraft: PostDraft, token: Token): Promise<Post> {
+    const formData = new FormData()
+    formData.append('content', postDraft.content)
+    formData.append('created_at', postDraft.created_at.toISOString())
+    // console.log(formData.get('content'))
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(postDraft),
+      body: formData,
     })
+    // console.log(response)
     if (!response.ok) {
       throw new Error(`Error creating post ${response.status}`)
     }
-    const data = await response.json()
+    const text = await response.text()
+    if (!text) {
+      throw new Error('Empty response from server')
+    }
+    const data = JSON.parse(text)
     return data
   }
 
