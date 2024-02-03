@@ -37,13 +37,19 @@ export class PostsController {
 
   @Post()
   // @UseGuards(AuthGuard)
-  @UseInterceptors(FileInterceptor('content'))
   async createPost(
-    @UploadedFile() content: Express.Multer.File,
     @Body() createPostDto: CreatePostDto,
   ) {
-    createPostDto.content = content;
-
     return await this.appService.createPost(createPostDto);
   }
+
+  @Post('/voice')
+  @UseInterceptors(FileInterceptor('content'))
+  async convertVoiceToText(
+    @UploadedFile() content: Express.Multer.File,
+    @Request() req,
+  ) {
+    return await this.appService.convertVoiceToText(content);
+  }
+
 }

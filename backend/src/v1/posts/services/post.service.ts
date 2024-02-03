@@ -13,6 +13,24 @@ export class PostService {
     private postRepository: PostRepository,
     private audioRecognitionService: AudioRecognitionService,
   ) {}
+  /**
+   *
+   */
+  async convertVoiceToText(file: Express.Multer.File) {
+    try {
+      console.log('-----------------');
+
+      // console.log(content);
+      const recognizedText = await this.audioRecognitionService.recognizeAudio(
+        file.buffer,
+      );
+      console.log(recognizedText);
+
+      return recognizedText;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   /**
    *  createPost: 音声認識を行い、認識したテキストをDBに保存する
@@ -21,18 +39,8 @@ export class PostService {
    */
   async createPost(createPostDto: CreatePostDto) {
     try {
-      const { content, user_id, created_at } = createPostDto;
-      // console.log(content);
-      const recognizedText = await this.audioRecognitionService.recognizeAudio(
-        content.buffer,
-      );
-      const newPostData = {
-        user_id: user_id,
-        created_at: created_at,
-        content: recognizedText,
-      };
-      const newPost = await this.postRepository.createPost(newPostData);
-      return newPost;
+      const post = await this.postRepository.createPost(createPostDto);
+      return post;
     } catch (e) {
       console.log(e);
     }
@@ -40,7 +48,7 @@ export class PostService {
 
   async findAllPosts(GetPostDto: GetPostDto) {
     const { user_id } = GetPostDto;
-   
+
     //limitTimeに24時間を入れて、24時間以内の投稿のみを取得する
     const limitTime = {
       year: 0,

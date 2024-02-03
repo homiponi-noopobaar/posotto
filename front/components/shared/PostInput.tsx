@@ -79,16 +79,10 @@ export default function PostInput(props: PostInputProps) {
       if (audioBlob) {
         console.log(audioBlob)
         try {
-          const res = await PostSev.createPost(
-            {
-              content: audioBlob,
-              created_at: new Date(),
-              // isLiked: false,
-              // _count: { favorites: 0, comments: 0 },
-            },
-            token,
-          )
-          console.log(res)
+          const res = await PostSev.convertVoiceToText(audioBlob, token)
+          if (res) {
+            console.log(res)
+          }
         } catch (err) {
           console.error(err)
         }
