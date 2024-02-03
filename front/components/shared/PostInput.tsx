@@ -108,6 +108,8 @@ export default function PostInput(props: PostInputProps) {
           rounded="md"
           boxShadow={ICON_BOX_SHADOW_PRESSED}
           p="2px"
+          pos="absolute"
+          top="0.1em"
         />
       )}
       <Center>

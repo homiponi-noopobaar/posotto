@@ -9,6 +9,8 @@ import { NeumoInput } from '@/components/elements/NeumoInput'
 import { NeumoButton } from '@/components/elements/NeumoButton'
 import { Token } from '@/types/token'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
+import { Sign } from 'crypto'
+import { SignIn } from '@clerk/nextjs'
 
 type UserInitFormProps = {
   token: Token
@@ -91,6 +93,7 @@ export default function UserInitForm(props: UserInitFormProps) {
           })}
         />
       </FormControl>
+      <SignIn />
       <NeumoButton type="submit" size="md" mt="3em" fontWeight="normal">
         ぽそっとはじめる
       </NeumoButton>
