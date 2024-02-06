@@ -19,7 +19,7 @@ export class AudioRecognitionService {
       await this.convertToWav(tempFilePath, wavFilePath);
 
       const pythonEnvPath = process.env.PYTHON_PATH || "python3";
-      const scriptPath = process.env.SCRIPT_PATH;
+      const scriptPath = process.env.SCRIPT_PATH2;
       const command = `${pythonEnvPath} ${scriptPath} ${wavFilePath}`;
 
       // Pythonスクリプトを実行
