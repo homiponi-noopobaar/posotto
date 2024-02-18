@@ -11,7 +11,7 @@ export default async function Home() {
   const { getToken } = auth()
   const token = await getToken()
   const posts = await PostSev.findAll(token)
-  const isCurrentUsersPost = true // TODO: implement
+  const isCurrentUsersPost = false // TODO: implement
   if (!posts) return <div>Loading...</div>
 
   return (

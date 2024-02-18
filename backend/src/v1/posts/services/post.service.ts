@@ -39,6 +39,8 @@ export class PostService {
    */
   async createPost(createPostDto: CreatePostDto) {
     try {
+      console.log('-----------------');
+      console.log(createPostDto);
       const post = await this.postRepository.createPost(createPostDto);
       return post;
     } catch (e) {
