@@ -29,6 +29,6 @@ type User = {
 }
 
 export type PostDraft = {
-  content: Blob
+  content: string
   created_at: Date
 }

@@ -2,7 +2,7 @@ import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import * as jwt from 'jsonwebtoken';
 
-const fs = require('fs');
+import * as fs from 'fs';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -10,7 +10,8 @@ export class JwtAuthGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-
+    console.log('-----------------');
+    console.log(request);
     const token = request.headers.authorization?.split(' ')[1];
     const publicKey = fs.readFileSync('./publicKey.pem', 'utf8');
 

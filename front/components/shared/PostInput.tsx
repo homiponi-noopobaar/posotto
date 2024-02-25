@@ -1,5 +1,13 @@
 'use client'
-import { Center, Progress, VStack } from '@yamada-ui/react'
+import {
+  Box,
+  Center,
+  HStack,
+  Progress,
+  Stack,
+  Text,
+  VStack,
+} from '@yamada-ui/react'
 import { useRef, useState } from 'react'
 import { NeumoIconButton } from '../elements/NeumoIconButton'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
@@ -9,6 +17,7 @@ import { PostService } from './_services/post.service'
 import { ICON_BOX_SHADOW_PRESSED } from '@/variants'
 import { Token } from '@/types/token'
 import { useEffect } from 'react'
+import { NeumoButton } from '../elements/NeumoButton'
 
 type PostInputProps = {
   token: Token
@@ -23,6 +32,9 @@ export default function PostInput(props: PostInputProps) {
   const [progress, setProgress] = useState(0)
   const PostRepo = new PostRepository()
   const PostSev = new PostService(PostRepo)
+  const [hasDraft, setHasDraft] = useState(false)
+  const [draftText, setDraftText] = useState<string>('')
+
   const startRecording = async () => {
     console.log('Recording started')
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -45,6 +57,11 @@ export default function PostInput(props: PostInputProps) {
         mediaRecorderRef.current.start()
         setIsRecording(true)
         setProgress(0)
+        setTimeout(() => {
+          if (isRecording) {
+            stopRecording()
+          }
+        }, 5000)
 
         recordingTimeoutRef.current = setInterval(() => {
           setProgress((prevProgress) => {
@@ -54,10 +71,6 @@ export default function PostInput(props: PostInputProps) {
             return prevProgress
           })
         }, 100)
-
-        setTimeout(() => {
-          stopRecording()
-        }, 5000)
       } catch (err) {
         console.error('Error accessing the microphone', err)
       }
@@ -82,6 +95,10 @@ export default function PostInput(props: PostInputProps) {
           const res = await PostSev.convertVoiceToText(audioBlob, token)
           if (res) {
             console.log(res)
+            setHasDraft(true)
+            setDraftText(res)
+            console.log('Draft text set')
+            console.log(draftText)
           }
         } catch (err) {
           console.error(err)
@@ -98,28 +115,69 @@ export default function PostInput(props: PostInputProps) {
       startRecording()
     }
   }
+  const handlePostButtonClick = async () => {
+    if (draftText) {
+      try {
+        await PostSev.createPost(
+          {
+            content: draftText,
+            created_at: new Date(),
+          },
+          token,
+        )
+        setHasDraft(false)
+        setDraftText('')
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  }
 
   return (
     <VStack gap="1em">
-      {isRecording && (
-        <Progress
-          value={progress}
-          filledTrackColor="gray.800"
-          rounded="md"
-          boxShadow={ICON_BOX_SHADOW_PRESSED}
-          p="2px"
-          pos="absolute"
-          top="0.1em"
-        />
+      {hasDraft ? (
+        <HStack my="md" mx="lg" justify="space-between">
+          <Box>
+            <Text>{draftText}</Text>
+          </Box>
+          <NeumoButton
+            handleClick={handlePostButtonClick}
+            w="6em"
+            fontWeight="md"
+            isDark
+          >
+            ぽそっ
+          </NeumoButton>
+        </HStack>
+      ) : isRecording ? (
+        <>
+          <Progress
+            value={progress}
+            filledTrackColor="gray.800"
+            rounded="md"
+            boxShadow={ICON_BOX_SHADOW_PRESSED}
+            p="2px"
+            pos="absolute"
+            top="0.1em"
+          />
+          <Center>
+            <NeumoIconButton
+              iconElem={<FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />}
+              handleClick={handleButtonClick}
+              isPressed
+              size="lg"
+            />
+          </Center>
+        </>
+      ) : (
+        <Center>
+          <NeumoIconButton
+            iconElem={<FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />}
+            handleClick={handleButtonClick}
+            size="lg"
+          />
+        </Center>
       )}
-      <Center>
-        <NeumoIconButton
-          iconElem={<FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />}
-          handleClick={handleButtonClick}
-          isPressed={isRecording}
-          size="lg"
-        />
-      </Center>
     </VStack>
   )
 }

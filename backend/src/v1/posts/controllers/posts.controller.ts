@@ -14,7 +14,6 @@ import { CreatePostDto } from '../dto/create-post.dto';
 import { PostService } from '../services/post.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
-
 @Controller('v1/posts')
 export class PostsController {
   constructor(private readonly appService: PostService) {}
@@ -36,11 +35,13 @@ export class PostsController {
   }
 
   @Post()
-  // @UseGuards(AuthGuard)
-  async createPost(
-    @Body() createPostDto: CreatePostDto,
-  ) {
-    return await this.appService.createPost(createPostDto);
+  @UseGuards(JwtAuthGuard)
+  async createPost(@Body() createPostDto: CreatePostDto, @Request() req) {
+    console.log(req);
+    return await this.appService.createPost({
+      ...createPostDto,
+      user_id: req.user_id,
+    });
   }
 
   @Post('/voice')
@@ -51,5 +52,4 @@ export class PostsController {
   ) {
     return await this.appService.convertVoiceToText(content);
   }
-
 }

@@ -93,8 +93,8 @@ export default function UserInitForm(props: UserInitFormProps) {
           })}
         />
       </FormControl>
-      <SignIn />
-      <NeumoButton type="submit" size="md" mt="3em" fontWeight="normal">
+      {/* <SignIn /> */}
+      <NeumoButton type="submit" size="md" mt="3em" fontWeight="normal" isDark>
         ぽそっとはじめる
       </NeumoButton>
     </VStack>
