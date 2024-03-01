@@ -6,9 +6,9 @@ export class PostService {
   constructor(private postRepository: PostRepository) {
     this.postRepository = PostRepository.getInstance()
   }
-  async convertVoiceToText(file: Blob,token:Token) {
+  async convertVoiceToText(file: Blob, token: Token) {
     try {
-      return await this.postRepository.convertVoiceToText(file,token)
+      return await this.postRepository.convertVoiceToText(file, token)
     } catch (err) {
       console.log(err)
     }

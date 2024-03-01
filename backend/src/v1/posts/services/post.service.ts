@@ -37,7 +37,7 @@ export class PostService {
    * @param createPostDto
    * @returns
    */
-  async createPost(createPostDto: CreatePostDto) {
+  async createPost(createPostDto: CreatePostDto&{user_id:string}) {
     try {
       console.log('-----------------');
       console.log(createPostDto);

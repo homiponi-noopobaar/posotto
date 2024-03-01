@@ -18,6 +18,7 @@ import { ICON_BOX_SHADOW_PRESSED } from '@/variants'
 import { Token } from '@/types/token'
 import { useEffect } from 'react'
 import { NeumoButton } from '../elements/NeumoButton'
+import { useAuth } from "@clerk/nextjs";
 
 type PostInputProps = {
   token: Token
@@ -32,9 +33,10 @@ export default function PostInput(props: PostInputProps) {
   const [progress, setProgress] = useState(0)
   const PostRepo = new PostRepository()
   const PostSev = new PostService(PostRepo)
-  const [hasDraft, setHasDraft] = useState(false)
-  const [draftText, setDraftText] = useState<string>('')
-
+  const [hasDraft, setHasDraft] = useState(true)
+  const [draftText, setDraftText] = useState<string>('こんにちは！')
+  const { getToken  } = useAuth();
+  
   const startRecording = async () => {
     console.log('Recording started')
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -116,6 +118,10 @@ export default function PostInput(props: PostInputProps) {
     }
   }
   const handlePostButtonClick = async () => {
+    console.log(draftText)
+    console.log('Posting...')
+    const accessToken = await getToken()
+
     if (draftText) {
       try {
         await PostSev.createPost(
@@ -123,7 +129,7 @@ export default function PostInput(props: PostInputProps) {
             content: draftText,
             created_at: new Date(),
           },
-          token,
+          accessToken,
         )
         setHasDraft(false)
         setDraftText('')

@@ -34,13 +34,13 @@ export class PostsController {
     return await this.appService.getPostDetail({ postId: postId });
   }
 
-  @Post()
   @UseGuards(JwtAuthGuard)
+  @Post()
   async createPost(@Body() createPostDto: CreatePostDto, @Request() req) {
-    console.log(req);
+    console.log(req.user);
     return await this.appService.createPost({
       ...createPostDto,
-      user_id: req.user_id,
+      user_id: req.user.userId,
     });
   }
 
