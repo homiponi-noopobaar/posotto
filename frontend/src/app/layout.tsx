@@ -13,14 +13,15 @@ import {
   extendTheme,
   withDefaultColorScheme,
 } from '@yamada-ui/react'
-import LeftSidebar from '@/components/shared/LeftSidebar'
-import RightSidebar from '@/components/shared/RightSidebar'
-import Menubar from '@/components/shared/Menubar'
-import Topbar from '@/components/shared/Topbar'
+import LeftSidebar from '@/components/LeftSidebar'
+import RightSidebar from '@/components/RightSidebar'
+import Menubar from '@/components/Menubar/components/Menubar'
+import Topbar from '@/components/Topbar'
 import theme from '@/theme'
 import '@/app/globals.css'
 import { BG_COLOR } from '@/variants'
 import Head from 'next/head'
+import QueryProvider from '@/providers/QueryProvider'
 
 export const metadata: Metadata = {
   title: 'posotto',
@@ -61,24 +62,26 @@ export default async function RootLayout({
             config={config}
             // theme={theme} // yamada-uiのバグ？
           >
-            <Topbar />
-            <Box w="full">
-              <Grid
-                templateColumns={{ base: '0fr auto 0fr', lg: '1fr auto 1fr' }}
-                bgColor={BG_COLOR}
-              >
-                <GridItem>
-                  <LeftSidebar />
-                </GridItem>
-                <GridItem w={{ base: 'full', lg: '61em' }} py="6em">
-                  {children}
-                </GridItem>
-                <GridItem>
-                  <RightSidebar />
-                </GridItem>
-              </Grid>
-            </Box>
-            <Menubar />
+            <QueryProvider>
+              <Topbar />
+              <Box w="full">
+                <Grid
+                  templateColumns={{ base: '0fr auto 0fr', lg: '1fr auto 1fr' }}
+                  bgColor={BG_COLOR}
+                >
+                  <GridItem>
+                    <LeftSidebar />
+                  </GridItem>
+                  <GridItem w={{ base: 'full', lg: '61em' }} py="6em">
+                    {children}
+                  </GridItem>
+                  <GridItem>
+                    <RightSidebar />
+                  </GridItem>
+                </Grid>
+              </Box>
+              <Menubar />
+            </QueryProvider>
           </UIProvider>
         </body>
       </html>

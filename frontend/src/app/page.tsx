@@ -1,4 +1,4 @@
-import { NeumoButton } from '@/components/elements/NeumoButton'
+import { NeumoButton } from '@/components/shared/elements/NeumoButton'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { BASE_COLOR_DARK, BOX_SHADOW_UNPRESSED } from '@/variants'
 import { SignIn, SignInButton } from '@clerk/nextjs'

@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs'
-import PostInput from './PostInput'
+import PostInput from '../PostInput/components/PostInput'
 
 export default async function PostInputDrawer() {
   const { getToken } = auth()

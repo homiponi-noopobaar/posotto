@@ -10,8 +10,8 @@ import {
 import { Post } from '@/types/data/post'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { useLike } from './hooks/useLike'
-import { NeumoIconButton } from '../elements/NeumoIconButton'
-import { postBodyInfo } from './postBodyInfo'
+import { NeumoIconButton } from '../../../../../shared/elements/NeumoIconButton'
+import { postBodyInfo } from '@/components/PostCards/components/PostCard/components/PostBody/utils'
 
 export type PostBodyProps = {
   post: Post
@@ -25,6 +25,7 @@ export default function PostBody(props: PostBodyProps) {
   const { isLiked, handleClickLike } = useLike()
   const { handlePushRouter } = useCustomRouter()
   const handleDeletePost = (postId: number) => {} // TODO: implement
+  // todo:これは取得時にやるべきビジネスロジックかも
   const { contentOpacity, timeSinceText } = postBodyInfo(post)
   return (
     <>

@@ -4,7 +4,7 @@ import { UserRepository } from '@/repositories/user.repository'
 import { UserService } from './_services/user.service'
 
 import { Suspense } from 'react'
-import PostCard from '@/components/posts/PostCard'
+import PostCard from '@/components/PostCards/components/PostCard/PostCard'
 
 type Props = {
   params: { id: string }

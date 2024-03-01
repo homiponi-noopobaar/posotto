@@ -1,7 +1,7 @@
 import { Divider, VStack } from '@yamada-ui/react'
 import { Post } from '@/types/data/post'
-import { NeumoBox } from '../elements/NeumoBox'
-import PostBody from './PostBody'
+import { NeumoBox } from './shared/elements/NeumoBox'
+import PostBody from './PostCards/components/PostCard/components/PostBody/PostBody'
 
 interface PostCardsProps {
   posts: Post[]

@@ -3,15 +3,6 @@ import { PostInterface } from '@/types/interface/post.interface'
 import { Token } from '@/types/token'
 
 export class PostRepository implements PostInterface {
-  private static instance: PostRepository
-
-  public static getInstance(): PostRepository {
-    if (!PostRepository.instance) {
-      PostRepository.instance = new PostRepository()
-    }
-    return PostRepository.instance
-  }
-
   async findAll(token: Token): Promise<Post[]> {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {

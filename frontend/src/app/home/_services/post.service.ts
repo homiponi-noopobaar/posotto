@@ -1,9 +1,7 @@
 import { PostRepository } from '@/repositories/post.repository'
 
 export class PostService {
-  constructor(private postRepository: PostRepository) {
-    this.postRepository = PostRepository.getInstance()
-  }
+  constructor(private postRepository: PostRepository) {}
   async findAll(token: string | null) {
     try {
       return await this.postRepository.findAll(token)

@@ -2,7 +2,7 @@
 import { BG_COLOR } from '@/variants'
 import { UserButton, SignedOut, SignInButton, SignedIn } from '@clerk/nextjs'
 import { Box, Center, Image, LinkBox, LinkOverlay } from '@yamada-ui/react'
-import { NeumoIconButton } from '@/components/elements/NeumoIconButton'
+import { NeumoIconButton } from '@/components/shared/elements/NeumoIconButton'
 import { Icon as FontAwesomeIcon } from '@yamada-ui/fontawesome'
 import { faRightToBracket, faPager } from '@fortawesome/free-solid-svg-icons'
 import { useCustomRouter } from '@/hooks/useCustomRouter'

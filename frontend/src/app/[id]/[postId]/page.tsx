@@ -1,8 +1,8 @@
 'use client'
 import { Center, Spacer, Stack, VStack } from '@yamada-ui/react'
 import { useParams } from 'next/navigation'
-import PostCard from '@/components/posts/PostCard'
-import RepliesCard from '@/components/posts/RepliesCard'
+import PostCard from '@/components/PostCards/components/PostCard/PostCard'
+import RepliesCard from '@/components/RepliesCard'
 
 export default function PostDetail() {
   const params = useParams()

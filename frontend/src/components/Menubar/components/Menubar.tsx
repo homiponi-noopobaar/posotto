@@ -1,11 +1,5 @@
-import {
-  Center,
-  Drawer,
-  DrawerFooter,
-  DrawerHeader,
-  Spacer,
-} from '@yamada-ui/react'
-import PostInputDrawer from './PostInputDrawer'
+import { Center, Spacer } from '@yamada-ui/react'
+import PostInputDrawer from './PostInputDrawer/components/PostInputDrawer'
 import { BG_COLOR } from '@/variants'
 
 export default function Menubar() {

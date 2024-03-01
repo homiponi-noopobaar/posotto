@@ -3,9 +3,7 @@ import { PostRepository } from '@/repositories/post.repository'
 import { Token } from '@/types/token'
 
 export class PostService {
-  constructor(private postRepository: PostRepository) {
-    this.postRepository = PostRepository.getInstance()
-  }
+  constructor(private postRepository: PostRepository) {}
   async convertVoiceToText(file: Blob, token: Token) {
     try {
       return await this.postRepository.convertVoiceToText(file, token)
