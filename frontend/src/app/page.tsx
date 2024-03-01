@@ -27,11 +27,11 @@ export default function Home() {
         <Box mb="5em" alignSelf="start">
           <VStack alignItems="left">
             <Text fontSize="xl" color={BASE_COLOR_DARK}>
-              ほんとに "つぶやく" SNS
+              ほんとに &quot;つぶやく&ldquo; SNS
             </Text>
             <HStack>
               <VStack alignItems="left" w="16em" gap="0">
-                <Image src="/posotto_title_3.svg" w="16em" />
+                <Image src="/posotto_title_3.svg" w="16em" alt="title"/>
                 <Text
                   fontSize="0.8em"
                   align="center"
@@ -43,11 +43,11 @@ export default function Home() {
                   ぽそっと
                 </Text>
               </VStack>
-              <Image src="/posotto_logo.svg" w="3em" mb="1.2em" />
+              <Image src="/posotto_logo.svg" w="3em" mb="1.2em" alt="logo"/>
             </HStack>
           </VStack>
         </Box>
-        <Image src="/screen_image.png" w="20em" mb="4em" />
+        <Image src="/screen_image.png" w="20em" mb="4em" alt='screen'/>
         <SignInButton>
           <NeumoButton
             w="20em"

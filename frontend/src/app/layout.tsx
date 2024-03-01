@@ -53,7 +53,7 @@ export default async function RootLayout({
       <html lang="ja">
         <head>
           <link rel="manifest" href="/manifest.json" />
-          <script src="@/app/script.js"></script>
+          <script src="@/app/script.js"  defer></script>
         </head>
         <body>
           <ColorModeScript type="cookie" nonce="testing" />

@@ -25,3 +25,4 @@ export const NeumoInput = React.forwardRef<HTMLInputElement, NeumoInputProps>(
     )
   },
 )
+NeumoInput.displayName = 'NeumoInput';

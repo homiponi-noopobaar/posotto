@@ -11,7 +11,7 @@ type PostCardProps = {
   posts: Post[]
 }
 
-export default async function PostCards(props: PostCardProps) {
+export default function PostCards(props: PostCardProps) {
   const { posts } = props
   const { findAll } = usePosts()
   const { data } = useQuery({

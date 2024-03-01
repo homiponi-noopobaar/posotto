@@ -18,6 +18,7 @@ type UserInitFormProps = {
 
 export default function UserInitForm(props: UserInitFormProps) {
   const { token } = props
+  const { handlePushRouter } = useCustomRouter()
 
   const {
     // control,
@@ -35,7 +36,6 @@ export default function UserInitForm(props: UserInitFormProps) {
       if (!res) {
         throw new Error('Failed to create user')
       }
-      const { handlePushRouter } = useCustomRouter()
       handlePushRouter('/home')
     } catch (err) {
       console.error(err)
