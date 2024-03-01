@@ -13,11 +13,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { PostService } from '../services/post.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ConvertTextDto } from '../dto/convert-text.dto';
 
 @Controller('v1/posts')
 export class PostsController {
   constructor(private readonly appService: PostService) {}
 
+  // 認証の有無で処理を分けているが、通さないべきなので、修正が必要
   @UseGuards(JwtAuthGuard)
   @Get()
   async fetchAllPosts(@Request() req) {
@@ -44,12 +46,21 @@ export class PostsController {
     });
   }
 
+  // @UseGuards(JwtAuthGuard)
   @Post('/voice')
-  @UseInterceptors(FileInterceptor('content'))
-  async convertVoiceToText(
-    @UploadedFile() content: Express.Multer.File,
-    @Request() req,
+  async convertText(
+    @Body() ConvertTextDto:ConvertTextDto,
   ) {
-    return await this.appService.convertVoiceToText(content);
+    console.log("-----------voice-----------");
+    return await this.appService.convertText(ConvertTextDto);
   }
+
+  // @Post('/voice')
+  // @UseInterceptors(FileInterceptor('content'))
+  // async convertVoiceToText(
+  //   @UploadedFile() content: Express.Multer.File,
+  //   @Request() req,
+  // ) {
+  //   return await this.appService.convertVoiceToText(content);
+  // }
 }

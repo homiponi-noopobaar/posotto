@@ -1,8 +1,8 @@
 'use client'
-import { Center, Progress, VStack } from '@yamada-ui/react'
+import { VStack } from '@yamada-ui/react'
 
 import { Token } from '@/types/token'
-import { useRecord } from '@/components/Menubar/components/PostInputDrawer/PostInput/hooks/useRecord'
+import { useRecord } from '@/features/Menubar/components/PostInputDrawer/components/PostInput/hooks/useRecord'
 import { DraftLayout } from './DraftLayout/components/DraftLayout'
 import { usePost } from '../hooks/usePost'
 import { RecordLayout } from './RecordLayout/components/RecordLayout'
@@ -14,14 +14,16 @@ type PostInputProps = {
 export default function PostInput(props: PostInputProps) {
   const { token } = props
   const {
-    audioBlob,
+    // audioBlob,
     isRecording,
     progress,
+    transcript,
+    resetTranscript,
     handleStartRecording,
     handleStopRecording,
   } = useRecord()
-  const { draftText, hasDraft, handlePostButtonClick } = usePost(
-    audioBlob,
+  const { draftText, hasDraft, handlePostButtonClick,uploadAudioText } = usePost(
+    // audioBlob,
     token,
   )
 
@@ -37,7 +39,8 @@ export default function PostInput(props: PostInputProps) {
           isRecording={isRecording}
           progress={progress}
           handleStartRecording={handleStartRecording}
-          handleStopRecording={handleStopRecording}
+          handleStopRecording={()=>handleStopRecording(uploadAudioText)}
+          transcript={transcript}
         />
       )}
     </VStack>

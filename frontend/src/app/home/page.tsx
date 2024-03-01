@@ -1,16 +1,14 @@
 import { Center, Spacer, Stack } from '@yamada-ui/react'
-import { PostService } from './_services/post.service'
-import { PostRepository } from '@/repositories/post.repository'
+import { PostService } from '@/app/home/_services/post.service'
 import { Suspense } from 'react'
-import PostCards from '@/components/PostCards/PostCards'
+import PostCards from '@/features/PostCards/PostCards'
 import { auth } from '@clerk/nextjs'
 
 export default async function Home() {
-  const PostRepo = new PostRepository()
-  const PostSev = new PostService(PostRepo)
   const { getToken } = auth()
   const token = await getToken()
-  const posts = await PostSev.findAll(token)
+  const posts = await PostService().findAll(token)
+
   const isCurrentUsersPost = false // TODO: implement
   if (!posts) return <div>Loading...</div>
 

@@ -1,9 +1,9 @@
 'use client'
 import { Post } from '@/types/data/post'
 import { VStack } from '@yamada-ui/react'
-import PostCard from '@/components/PostCards/components/PostCard/PostCard'
+import PostCard from '@/features/PostCards/components/PostCard/PostCard'
 import { useQuery } from '@tanstack/react-query'
-import { usePosts } from '@/components/PostCards/hooks/usePosts'
+import { usePosts } from '@/features/PostCards/hooks/usePosts'
 // import { User } from '@clerk/nextjs/server'
 
 type PostCardProps = {

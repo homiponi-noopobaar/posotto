@@ -10,8 +10,8 @@ import {
 import { Post } from '@/types/data/post'
 import { useCustomRouter } from '@/hooks/useCustomRouter'
 import { useLike } from './hooks/useLike'
-import { NeumoIconButton } from '../../../../../shared/elements/NeumoIconButton'
-import { postBodyInfo } from '@/components/PostCards/components/PostCard/components/PostBody/utils'
+import { NeumoIconButton } from '../../../../../../components/shared/elements/NeumoIconButton'
+import { postBodyInfo } from '@/features/PostCards/components/PostCard/components/PostBody/utils'
 
 export type PostBodyProps = {
   post: Post

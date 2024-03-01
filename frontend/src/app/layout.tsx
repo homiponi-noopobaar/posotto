@@ -15,7 +15,7 @@ import {
 } from '@yamada-ui/react'
 import LeftSidebar from '@/components/LeftSidebar'
 import RightSidebar from '@/components/RightSidebar'
-import Menubar from '@/components/Menubar/components/Menubar'
+import Menubar from '@/features/Menubar/components/Menubar'
 import Topbar from '@/components/Topbar'
 import theme from '@/theme'
 import '@/app/globals.css'

@@ -24,12 +24,15 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.0",
+    "react-speech-recognition": "^3.10.0",
+    "regenerator-runtime": "^0.14.1",
     "uploadthing": "^6.3.1"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-speech-recognition": "^3.9.5",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "@typescript-eslint/parser": "^6.19.1",
     "@yamada-ui/cli": "^1.0.1",

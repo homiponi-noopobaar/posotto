@@ -8,12 +8,18 @@ import { Progress, Center } from '@yamada-ui/react'
 type Props = {
   isRecording: boolean
   progress: number
+  transcript: string
   handleStartRecording: () => void
   handleStopRecording: () => void
 }
 export const RecordLayout = (props: Props) => {
-  const { isRecording, progress, handleStartRecording, handleStopRecording } =
-    props
+  const {
+    isRecording,
+    progress,
+    transcript,
+    handleStartRecording,
+    handleStopRecording,
+  } = props
   return (
     <>
       {isRecording && (
@@ -28,6 +34,7 @@ export const RecordLayout = (props: Props) => {
         />
       )}
       <Center>
+        <p>{transcript}</p>
         <NeumoIconButton
           iconElem={<FontAwesomeIcon icon={faMicrophone} fontSize="2xl" />}
           handleClick={isRecording ? handleStopRecording : handleStartRecording}

@@ -1,5 +1,3 @@
-import { BG_COLOR } from './../../variants/index'
-import { create } from 'domain'
 export type Post = {
   id: number
   user: User
@@ -31,4 +29,10 @@ type User = {
 export type PostDraft = {
   content: string
   created_at: Date
+}
+export type RequestAudioText = {
+  text: string
+}
+export type ResponseAudioText = {
+  text: string
 }

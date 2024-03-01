@@ -1,17 +1,18 @@
 import sys
-import speech_recognition as sr
+# import speech_recognition as sr
 from transformers import pipeline, MarianMTModel, MarianTokenizer
 import torch
 
 # コマンドライン引数からファイルパスを取得
-file_path = sys.argv[1]
+# file_path = sys.argv[1]
+ja_text = sys.argv[1]
 
 # 音声認識オブジェクト
-recognizer = sr.Recognizer()
+# recognizer = sr.Recognizer()
 
-with sr.AudioFile(file_path) as source:
+# with sr.AudioFile(file_path) as source:
     # 音声データの読み込み
-    audio_data = recognizer.record(source)
+    # audio_data = recognizer.record(source)
 
 # 初期化
 model_name = 'Helsinki-NLP/opus-mt-ja-en'
@@ -27,7 +28,7 @@ def translate_ja_to_en(text):
 sentiment_pipeline = pipeline('sentiment-analysis')
 
 # 日本語テキスト(ここに音声ファイルのテキスト化したものを格納する)
-ja_text = recognizer.recognize_google(audio_data, language="ja-JP")
+# ja_text = recognizer.recognize_google(audio_data, language="ja-JP")
 
 # 翻訳を実行
 en_text = translate_ja_to_en(ja_text)
