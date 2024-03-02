@@ -6,6 +6,7 @@ import { CreatePostDto } from '../dto/create-post.dto';
 import { AudioRecognitionService } from './audio-recognition.service';
 import { GetPostDto } from '../dto/get-posts-all.dto';
 import { GetPostDetailDto } from '../dto/get-post-detail.dto';
+import { ConvertTextDto } from '../dto/convert-text.dto';
 
 @Injectable()
 export class PostService {
@@ -16,17 +17,15 @@ export class PostService {
   /**
    *
    */
-  async convertVoiceToText(file: Express.Multer.File) {
+  async convertText(convertTextDto: ConvertTextDto) {
     try {
       console.log('-----------------');
-
+      const { text } = convertTextDto;
       // console.log(content);
-      const recognizedText = await this.audioRecognitionService.recognizeAudio(
-        file.buffer,
+      const recognizedText = await this.audioRecognitionService.recognizeAudioText(
+        text,
       );
-      console.log(recognizedText);
-
-      return recognizedText;
+      return {text:recognizedText};
     } catch (e) {
       console.log(e);
     }
@@ -37,7 +36,7 @@ export class PostService {
    * @param createPostDto
    * @returns
    */
-  async createPost(createPostDto: CreatePostDto) {
+  async createPost(createPostDto: CreatePostDto&{user_id:string}) {
     try {
       console.log('-----------------');
       console.log(createPostDto);

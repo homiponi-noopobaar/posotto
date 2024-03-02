@@ -48,7 +48,22 @@ export const user = async () => {
       link: 'https://www.google.com/',
       comment:"sample comment",
       deleted_at: null
+    },
+    {
+      // user4
+      birthday: new Date(),
+      created_at: new Date(),
+      id: 'user_2bnlcwboHNuvxzRIApEUaHO4X96',
+      publicId: 'posotto_official_3',
+      nickname: 'posotto_3',
+      // アクセスするたびに画像が変わるURL
+      img_url: 'https://picsum.photos/200/300',
+      isPublic: true,
+      link: 'https://www.google.com/',
+      comment:"sample comment",
+      deleted_at: null
     }
+
   ]
   await prisma.user.createMany({
     data: users.map((user) => user),

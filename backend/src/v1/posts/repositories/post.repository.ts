@@ -128,6 +128,7 @@ export class PostRepository {
         },
         _count: { select: { favorites: true } },
       },
+      orderBy: { created_at: 'desc' },
     });
 
     return posts;

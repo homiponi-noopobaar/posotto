@@ -1,20 +1,25 @@
 version: '3.8'
 services:
   api:
-    container_name: api
-    build: .
-    # コンテナのポートとホストのポートを紐づける
-    tty: true
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    build:
+      context: .
+      target: builder  # マルチステージビルドのビルドステージを指定
     ports:
       - '8000:8000'
     volumes:
-      - type: bind
-        source: .
-        target: /api
+      - .:/api  # ソースコードをマウント
     depends_on:
       - db
     environment:
+      NODE_ENV: development
       DATABASE_URL: postgres://user:password@db:5432/dbname
+      PYTHON_PATH: /opt/venv/bin/python3
+      SCRIPT_PATH: /api/src/lib/speech_recognition/BERT.py
+    command: npm run start:dev
 
   db:
     image: postgres:12
