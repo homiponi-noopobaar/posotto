@@ -6,7 +6,7 @@ export const PostService = () => {
     try {
       // fetchGetのシグネチャに合わせてtokenがnullの場合はundefinedを渡す
       const posts = await fetchGet<Post[]>('/posts', token ?? undefined);
-      return posts;
+      return posts.data;
     } catch (err) {
       console.error(err);
       // エラー時の戻り値としてnullを返すか、適切にハンドリング

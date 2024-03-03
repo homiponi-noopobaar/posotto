@@ -15,8 +15,7 @@ export const PostService = () => {
         { text: text },
         token ?? undefined,
       )
-      console.log(result)
-      return result
+      return result.data
     } catch (err) {
       console.log(err)
       return null
@@ -29,7 +28,7 @@ export const PostService = () => {
         postDraft,
         token ?? undefined,
       )
-      return post
+      return post.data
     } catch (err) {
       console.log(err)
       return null

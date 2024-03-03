@@ -9,7 +9,8 @@ export const usePosts = () => {
   const findAll = async () => {
       const token = await getToken()
     try {
-      return await PostService().findAll(token)
+      const result = await PostService().findAll(token)
+      return result
     } catch (err) {
       console.log(err)
     }
