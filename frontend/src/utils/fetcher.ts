@@ -1,4 +1,4 @@
-import { DBResponse } from "@/types/data/Response";
+import { DBResponse } from "@/types/data/dbResponse";
 
 
   async function fetchGet<T>(url: string, token?: string, headers: Record<string, string> = {}): Promise<DBResponse<T>> {
