@@ -8,7 +8,7 @@ export default async function Home() {
   const { getToken } = auth()
   const token = await getToken()
   const posts = await PostService().findAll(token)
-
+  
   const isCurrentUsersPost = false // TODO: implement
   if (!posts) return <div>Loading...</div>
 

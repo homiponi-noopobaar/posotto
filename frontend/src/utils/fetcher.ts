@@ -1,17 +1,20 @@
-async function fetchGet<T>(url: string, token?: string, headers: Record<string, string> = {}): Promise<T> {
-    return fetchWrapper<T>(url, 'GET', token, undefined, headers);
+import { DBResponse } from "@/types/data/dbResponse";
+
+
+  async function fetchGet<T>(url: string, token?: string, headers: Record<string, string> = {}): Promise<DBResponse<T>> {
+    return fetchWrapper<DBResponse<T>>(url, 'GET', token, undefined, headers);
   }
   
-  async function fetchPost<T, BodyType>(url: string, body: BodyType, token?: string, headers: Record<string, string> = {}): Promise<T> {
-    return fetchWrapper<T, BodyType>(url, 'POST', token, body, headers);
+  async function fetchPost<T, BodyType>(url: string, body: BodyType, token?: string, headers: Record<string, string> = {}): Promise<DBResponse<T>> {
+    return fetchWrapper<DBResponse<T>, BodyType>(url, 'POST', token, body, headers);
   }
   
-  async function fetchPut<T, BodyType>(url: string, body: BodyType, token?: string, headers: Record<string, string> = {}): Promise<T> {
-    return fetchWrapper<T, BodyType>(url, 'PUT', token, body, headers);
+  async function fetchPut<T, BodyType>(url: string, body: BodyType, token?: string, headers: Record<string, string> = {}): Promise<DBResponse<T>> {
+    return fetchWrapper<DBResponse<T>, BodyType>(url, 'PUT', token, body, headers);
   }
   
-  async function fetchDelete<T>(url: string, token?: string, headers: Record<string, string> = {}): Promise<T> {
-    return fetchWrapper<T>(url, 'DELETE', token, undefined, headers);
+  async function fetchDelete<T>(url: string, token?: string, headers: Record<string, string> = {}): Promise<DBResponse<T>> {
+    return fetchWrapper<DBResponse<T>>(url, 'DELETE', token, undefined, headers);
   }
   
   async function fetchWrapper<ResponseType, BodyType = undefined>(
